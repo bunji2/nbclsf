@@ -1,5 +1,5 @@
 // Naive Bayes Classifier
-package main
+package nbclsf
 
 import (
 	"math"
