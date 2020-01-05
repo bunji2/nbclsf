@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>多項分布のパラメータ推定 (multinomial distribution)</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<p><b>多項分布のパラメータ推定</b></p>
+<p>
+1 から m までの目を持つサイコロを想定する。このサイコロの
+各目の出る確率 \(\theta_1 ... \theta_m\) が未知だとする 
+(\(0\gt\theta_j\gt 1 \ \&\ \Sigma_{j=1}^m \theta_j = 1\))。
+サイコロを \(n\) 回投げた結果が、\(\boldsymbol{x} = \boldsymbol{x_1}, \boldsymbol{x_2}, ..., \boldsymbol{x_i}, ..., \boldsymbol{x_n} \) で \(i\) 回目の試行で \(j\) 面が出ることを \(x_{ij}=1\) 出ないときは \(x_{ij}=0\) として、\(i\) 回目の試行を \(\boldsymbol{x_i} = x_{i1}, ..., x_{ij}, ... x_{im}\) と表現する。
+
+\[
+x_{ij} \in \{0, 1\}
+ \ \ \ \ 
+\Sigma_{j=1}^m x_{ij} = 1
+\]
+さて \(n\) 回の試行のうち、各面の出た回数は \(r_j\) 回だったとする。
+
+\[
+r_j = \Sigma_{i=1}^n x_{ij} \ \ (0\le j \le n)
+ \ \ \ \ 
+n = \Sigma_{j=1}^m r_j
+\]
+
+
+この結果をもとに、確率ベクトル \(\boldsymbol{\theta} = \theta_1,...,\theta_m\) を推定してみる。
+</p>
+<hr>
+<p>
+例として通常の６面を持つサイコロを三回振ることを考える。
+1回目の目が3、2回目の目が1、3回目の目が6とすると、
+これらの確率変数 \(\boldsymbol{x} = \boldsymbol{x_1}, \boldsymbol{x_2}, \boldsymbol{x_3}\) は次のように表現されることとなる。
+
+<center>
+<table border="1">
+<tr>
+<td align="center">試行回数</td>
+<td align="center">出た目</td>
+<td align="center" colspan="2">確率変数</td>
+</tr>
+<tr>
+<td>1回目</td>
+<td>3</td>
+<td>\(\boldsymbol{x_1}\)</td>
+<td>\(x_{11}=0,x_{12}=0,x_{13}=1,x_{14}=0,x_{15}=0,x_{16}=0\)</td>
+</tr>
+<tr>
+<td>2回目</td>
+<td>1</td>
+<td>\(\boldsymbol{x_2}\)</td>
+<td>\(x_{21}=1,x_{22}=0,x_{23}=0,x_{24}=0,x_{25}=0,x_{26}=0\)</td>
+</tr>
+<tr>
+<td>3回目</td>
+<td>6</td>
+<td>\(\boldsymbol{x_3}\)</td>
+<td>\(x_{31}=0,x_{32}=0,x_{33}=0,x_{34}=0,x_{35}=0,x_{36}=1\)</td>
+</tr>
+</table>
+</center>
+
+1回目の試行の確立は次のように表される。
+\[
+p(\boldsymbol{x_1}|\boldsymbol{\theta}) = 
+\theta_1^{x_{11}}\theta_2^{x_{12}}\theta_3^{x_{13}}\theta_4^{x_{14}}\theta_5^{x_{15}}\theta_6^{x_{16}} =
+\theta_1^0\theta_2^0\theta_3^1\theta_4^0\theta_5^0\theta_6^0 =
+\theta_3
+\]
+
+同様に、2回目・3回目は次のようになる。
+\[
+p(\boldsymbol{x_2}|\boldsymbol{\theta}) = \theta_1
+\\
+p(\boldsymbol{x_3}|\boldsymbol{\theta}) = \theta_6
+\]
+
+各試行はそれぞれ独立であることから、これらの結果の確率は次のようになる。
+
+\[
+p(\boldsymbol{x}|\boldsymbol{\theta}) = 
+p(\boldsymbol{x_1}|\boldsymbol{\theta}) 
+p(\boldsymbol{x_2}|\boldsymbol{\theta}) 
+p(\boldsymbol{x_3}|\boldsymbol{\theta}) =
+\theta_3\theta_1\theta_6
+\]
+
+</p>
+
+<hr>
+
+<p>
+少し一般化しておく。
+
+\(i\) 回目の試行の確立は次のように表される。
+\[
+p(\boldsymbol{x_i}|\boldsymbol{\theta}) = 
+\theta_1^{x_{i1}}\cdot\cdot\cdot \theta_m^{x_{im}} =
+\Pi_{j=1}^m \theta_j^{x_{ij}}
+\]
+
+従って \(n\) 回の試行結果の確率 \(\boldsymbol{x}\) は次のようになる。
+
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x}|\boldsymbol{\theta}) 
+ & = &
+\Pi_{i=1}^n p(\boldsymbol{x_i}|\boldsymbol{\theta}) 
+ \\
+ & = &
+\Pi_{i=1}^n \Pi_{j=1}^m \theta_j^{x_{ij}}
+\end{array}
+\]
+
+そして \(n\) 回のうち、各面の出た回数は \(r_i\) 回だったことから次のように変形できる。
+
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x}|\boldsymbol{\theta}) 
+ & = &
+\Pi_{i=1}^n \Pi_{j=1}^m \theta_j^{x_{ij}}
+ \\
+ & = &
+\Pi_{j=1}^m \theta_j^{\Sigma_{i=1}^n x_{ij}}
+ \\
+ & = &
+\Pi_{j=1}^m \theta_j^{r_j}
+\end{array}
+\]
+
+このような試行結果 \(\boldsymbol{x}\) の確率 \(p(\boldsymbol{x}|\boldsymbol{\theta}) \) を
+\(\boldsymbol{x}\) の尤度関数と呼ぶ。
+</p>
+<p>
+なお今回のサイコロの例では、\(\theta_m = 1 - \Sigma_{j=1}^{m-1} \theta_j\) また 
+\(r_m = n - \Sigma_{j=1}^{m-1} r_j\) であることから
+上記は m 次関数ではなく実質的に m-1 次関数であることも付け加えておく。
+
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x}|\boldsymbol{\theta}) 
+ & = &
+\Pi_{j=1}^{m-1} \theta_j^{r_j} \cdot \theta_m^{r_m}
+ \\
+ & = &
+\Pi_{j=1}^{m-1} \theta_j^{r_j} \cdot (1-\Sigma_{j=1}^{m-1} \theta_j)^{n - \Sigma_{j=1}^{m-1} r_j}
+ \\
+
+\end{array}
+\]
+
+</p>
+<hr>
+<p>
+<b>\(\boldsymbol{\theta}\) の最尤推定値</b>
+</p>
+<p>
+\(\boldsymbol{x}\) の尤度関数 \(p(\boldsymbol{x}|\boldsymbol{\theta}) \) を \(\boldsymbol{\theta}\) の関数とみなして、\(\boldsymbol{\theta}\)　の最尤推定値を計算する。
+
+\[
+ L(\boldsymbol{\theta}) = p(\boldsymbol{x}|\boldsymbol{\theta}) = \Pi_{j=1}^m \theta_j^{r_j}
+ \]
+
+ \[
+\log L(\boldsymbol{\theta}) = \Sigma_{j=1}^m r_j \log \theta_j= \Sigma_{j=1}^{m-1} r_j \log \theta_j
+ + (n - \Sigma_{j=1}^{m-1} r_j) \log (1 - \Sigma_{j=1}^{m-1} \theta_j)
+\]
+
+\[
+\dfrac{\partial}{\partial \theta_j} \log L(\boldsymbol{\theta}) = 
+\dfrac{r_j}{\theta_j} - \dfrac{n - \Sigma_{j=1}^{m-1} r_j}{1 - \Sigma_{j=1}^{m-1} \theta_j} = 
+\dfrac{r_j}{\theta_j} - \dfrac{r_m}{\theta_m} = 0
+\]
+
+\[
+\theta_j = \dfrac{r_j}{r_m}\theta_m
+\]
+
+\(\theta_j\) はすべて足し合わせると 1 になるので、
+
+\[
+\Sigma_{j=1}^m \theta_j = \Sigma_{j=1}^m \dfrac{r_j}{r_m}\theta_m = 1
+\]
+
+\[
+\theta_m = \dfrac{r_m}{n} \ \ \ \ \because \Sigma_{j=1}^m r_j = n
+\]
+
+\[
+\therefore
+\hat{\theta_j}_{MLE} = \dfrac{r_j}{n}
+\]
+
+つまり、ここでの最尤推定値とは出た目の回数の全体の試行回数に対する割合に相当する。
+
+</p>
+<hr>
+<p>
+続いて、MAP 推定値と EAP 推定値を計算するために \(\boldsymbol{\theta}\) の事後分布を考える。
+
+多項分布の共益事前分布はディリクレ分布 (Dirichlet distribution)を使う。
+
+\(\boldsymbol{\alpha} = \alpha_1,...\alpha_K\) をパラメータのベクトル、
+
+\(\boldsymbol{\theta} = \theta_1,...\theta_K\) を確率ベクトルとする
+ \(K-1\) 次のディリクレ分布の関数密度関数は次式で表される。
+
+\[
+
+Dir(\boldsymbol{\theta};\boldsymbol{\alpha}) = \dfrac{
+1}{
+B(\boldsymbol{\alpha})
+}
+\Pi_{i=1}^{K} \theta_i^{\alpha_i -1} 
+
+\]
+
+ただし以下を満たすものとする。
+\[
+\Sigma_{i=1}^K \theta_i = 1
+ \ \ \ \ 
+\theta_1, ..., \theta_K \ge 0\\
+
+B(\boldsymbol{\alpha}) = \dfrac{
+\Pi_{i=1}^{K} \Gamma(\alpha_i)
+}{
+\Gamma(\Sigma_{i=1}^{K} \alpha_i)
+} = \dfrac{
+(\alpha_1-1)!(\alpha_2-1)!...(\alpha_K-1)!
+}{
+(\alpha_1+\alpha_2+...+\alpha_K-1)!
+}
+\]
+
+\( \theta_K = 1 - (\theta_1+...+\theta_{K-1})\) より、上の関数の次数は \( K-1 \) となる。
+
+今回の場合は \(K=m\) なので事前分布 \(p(\boldsymbol{\theta})\)は次の通り。
+
+\[
+
+p(\boldsymbol{\theta}) =
+Dir(\boldsymbol{\theta};\boldsymbol{\alpha}) = \dfrac{
+1}{
+B(\boldsymbol{\alpha})
+}
+\Pi_{j=1}^{m} \theta_j^{\alpha_j -1} 
+
+\]
+
+</p>
+<hr>
+<p>
+<b>[積分公式]</b>
+
+\[
+\int_0^\infty \theta_1^{\alpha_1 -1}...\theta_n^{\alpha_n -1}d\theta_1...d\theta_{n-1} = 
+\dfrac{\Gamma(\alpha_1)...\Gamma(\alpha_n)}{\Gamma(\alpha_1 + ... + \alpha_n)}
+
+\ \ \ \ (1)
+\]
+
+\[
+\theta_1 + ... + \theta_n = 1
+\]
+
+\[
+\theta_n = 1 - \theta_1 - \theta_2 ... - \theta_{n-1} 
+\]
+
+\[
+\theta_1 + ... + \theta_{n-1} \le 1
+\]
+
+
+</p>
+<hr>
+<p>
+ディリクレ分布における \(\theta_j\) の期待値を求めておく。
+
+\[
+\begin{array}{rcl}
+ E[\theta_1]
+ & = &
+ \int_{0}^{\infty}
+ \theta_1
+ Dir(\boldsymbol{\theta};\boldsymbol{\alpha})
+ d\theta_1 ... d\theta_{n-1}
+ \\
+
+ & = &
+ \int_{0}^{\infty}
+ \theta_1
+ \cdot
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{i=1}^{n} \theta_i^{\alpha_i -1} 
+ d\theta_1 ... d\theta_{n-1}
+ \\
+
+ & = &
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \int_{0}^{\infty}
+ \theta_1^\alpha
+ \theta_2^{\alpha_2 -1} 
+ ...
+ \theta_n^{\alpha_n -1} 
+ d\theta_1 ... d\theta_{n-1}
+ \\
+
+ & = &
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \dfrac{\Gamma(\alpha_1+1)...\Gamma(\alpha_n)}{\Gamma(\Sigma_{i=1}^{n} \alpha_i + 1)}
+ & (1) より
+ \\
+
+ & = &
+ \dfrac{\Gamma(\Sigma_{i=1}^{n} \alpha_i)}{\Gamma(\alpha_1)...\Gamma(\alpha_n)}
+ \dfrac{\alpha_1 \Gamma(\alpha_1)...\Gamma(\alpha_n)}{(\Sigma_{i=1}^{n} \alpha_i)\Gamma(\Sigma_{i=1}^{n} \alpha_i)}
+ \\
+
+ & = &
+ \dfrac{\alpha_1}{\Sigma_{i=1}^n \alpha_i}
+
+\end{array}
+\]
+
+従って、\(\theta_j\ \ (j=1,...,K-1)\) の期待値は次のようになる。
+
+\[
+E[\theta_j] = \dfrac{\alpha_j}{\Sigma_{i=1}^n \alpha_i}\ \ \ (j = 1,...,K-1)
+\]
+
+参考：
+<a href="https://to-kei.net/distribution/dirichlet-distribution/dirichlet-distribution-derivation/" target="_blank">
+https://to-kei.net/distribution/dirichlet-distribution/dirichlet-distribution-derivation/
+</a>
+
+
+</p>
+<hr>
+<p>
+
+\(p(\boldsymbol{x} | \boldsymbol{\theta}) p(\boldsymbol{\theta})\) は次のようになる。
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x} | \boldsymbol{\theta}) p(\boldsymbol{\theta})
+ & = & 
+ \Pi_{j=1}^m \theta_j^{r_j}
+\cdot
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{j=1}^{m} \theta_j^{\alpha_j -1}
+ \\
+ & = & 
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+
+\end{array}
+\]
+</p>
+<hr>
+<p>
+\(p(\boldsymbol{x})\) は次のようになる。
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x})
+ & = &
+ \int_0^1
+ p(\boldsymbol{x} | \theta) p(\theta)
+ d\theta
+ \\
+ & = &
+ \int_0^1
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+ d\theta
+ \\
+ & = &
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \int_0^1
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+ d\theta
+ \\
+ & = &
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \dfrac{\Pi_{j=1}^m \Gamma(r_j + \alpha_j)}{\Sigma_{j=1}^m (r_j + \alpha_j)}
+ \\
+\end{array}
+\]
+
+<!--
+
+多項分布
+
+\(\Sigma_{i=1}^k x_i = n\) &amp; \(x_i \ge 0\)を満たす
+実数ベクトル \(\boldsymbol{x} = x_1,...x_k\) を確率変数とし、
+
+\(\boldsymbol{x}\) に対して
+\(\Sigma_{i=1}^k p_i = 1\) &amp; \(p_i \ge 0\)を満たす
+確率ベクトル \(\boldsymbol{\theta} = \theta_1,...\theta_k\) とすれば、
+多項分布の確率質量関数は次のとおりである。
+
+\[
+f(\boldsymbol{x};n,\boldsymbol{\theta}) = \dfrac{
+n!
+}{
+\Pi_{i=1}^{k} x_i!
+}
+\Pi_{i=1}^{k} \theta_i^{x_i}
+\]
+
+これが尤度 \(p(\boldsymbol{x}|\boldsymbol{\theta})\)。
+
+</p>
+<hr>
+<p>
+\(p(\boldsymbol{x} | \boldsymbol{\theta}) p(\boldsymbol{\theta})\) は次のようになる。
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x} | \boldsymbol{\theta}) p(\boldsymbol{\theta})
+ & = & 
+ \dfrac{n!}{\Pi_{i=1}^{k} x_i!}
+ \Pi_{i=1}^{k} \theta_i^{x_i}
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{i=1}^{k} \theta_i^{\alpha_i -1}
+ \\
+ & = & 
+ \dfrac{n!}{B(\boldsymbol{\alpha}) \Pi_{i=1}^{k} x_i! }
+ \Pi_{i=1}^{k} \theta_i^{x_i + \alpha_i -1}
+\end{array}
+\]
+</p>
+<hr>
+<p>
+\(p(\boldsymbol{x})\) は次のようになる。
+\[
+\begin{array}{rcl}
+p(\boldsymbol{x}) & = & \int_0^1 p(\boldsymbol{x} | \theta) p(\theta) d\theta \\
+                  & = & \int_0^1 \dfrac{{}_r C_n}{B(\alpha,\beta)}
+                        \theta^{r+\alpha-1}(1-\theta)^{n-r+\beta-1}
+                        d\theta \\
+                  & = & \dfrac{{}_r C_n}{B(\alpha,\beta)}
+                        \int_0^1 \theta^{r+\alpha-1}(1-\theta)^{n-r+\beta-1}
+                        d\theta \\
+                  & = & \dfrac{{}_r C_n (r+\alpha-1)!(n-r+\beta-1)!}{B(\alpha,\beta)(n+\alpha+\beta-1)!} 
+\end{array}
+\]
+-->
+</p>
+<hr>
+<p>
+以上から \(p(\boldsymbol{\theta}|\boldsymbol{x})\) を求めると、次に示すようにディリクレ分布関数となる。
+\[
+\begin{array}{rcll}
+p(\boldsymbol{\theta}|\boldsymbol{x}) & = & \dfrac{
+p(\boldsymbol{x} | \boldsymbol{\theta})
+}{
+p(\boldsymbol{x})
+}
+\cdot
+p(\boldsymbol{\theta}) \\
+ & = & 
+
+ \dfrac{1}{B(\boldsymbol{\alpha})}
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+
+ B(\boldsymbol{\alpha})
+ \dfrac{\Sigma_{j=1}^m (r_j + \alpha_j)}
+{\Pi_{j=1}^m \Gamma(r_j + \alpha_j)}
+ \\
+ & = & 
+
+ \dfrac{\Sigma_{j=1}^m (r_j + \alpha_j)}{\Pi_{j=1}^m \Gamma(r_j + \alpha_j)}
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+ \\
+
+ & = & 
+ \dfrac{\Sigma_{j=1}^m (\alpha_j')}{\Pi_{j=1}^m \Gamma(\alpha_j')}
+ \Pi_{j=1}^{m} \theta_j^{\alpha_j' -1}
+ &
+ \because \alpha_j' = \alpha_j + r_j
+ \\
+
+ & = & 
+ \dfrac{1}{B(\boldsymbol{\alpha'})}
+ \Pi_{j=1}^{m} \theta_j^{\alpha_j' -1} 
+ &
+ \because \boldsymbol{\alpha}' = \alpha_1',...\alpha_m'
+ \\
+
+ & = & 
+ Dir(\boldsymbol{\theta};\boldsymbol{\alpha}')
+
+\end{array}
+\]
+
+
+</p>
+<hr>
+<p>
+MAP 推定値。
+
+\[
+L(\boldsymbol{\theta}) = p(\boldsymbol{\theta}|\boldsymbol{x}) = 
+
+ \dfrac{\Sigma_{j=1}^m (r_j + \alpha_j)}{\Pi_{j=1}^m \Gamma(r_j + \alpha_j)}
+ \Pi_{j=1}^{m} \theta_j^{r_j + \alpha_j -1}
+
+\]
+
+\[
+\begin{array}{rcl}
+\log L(\boldsymbol{\theta})
+
+ & = & 
+
+\Sigma_{j=1}^m (r_j + \alpha_j -1) \log \theta_j
+
+ \\
+
+ & = &
+
+\Sigma_{j=1}^m (r_j + \alpha_j -1) \log \theta_j + (r_m + \alpha_m -1) \log \theta_m
+ \\
+
+ & = &
+
+\Sigma_{j=1}^m (r_j + \alpha_j -1) \log \theta_j + (n - \Sigma_{j=1}^m r_j + \alpha_m -1) \log (1 - \Sigma_{j=1}^m \theta_j)
+\end{array}
+
+\]
+
+\[
+
+\dfrac{\partial}{\partial \theta_j}\log L(\boldsymbol{\theta}) = 
+\dfrac{r_j + \alpha_j -1}{\theta_j}
+
+ -
+
+\dfrac{n - \Sigma_{j=1}^m r_j + \alpha_m -1}{1 - \Sigma_{j=1}^m \theta_j} = 0
+
+\]
+
+\[
+
+\theta_j = \dfrac{r_j + \alpha_j -1}{r_m + \alpha_m -1}
+\theta_m
+\]
+
+\[
+
+\Sigma_{j=1}^m \theta_j = \dfrac{\theta_m}{r_m + \alpha_m -1}{ \Sigma_{j=1}^m(r_j + \alpha_j -1)} = 
+\dfrac{\theta_m}{r_m + \alpha_m -1} (n + \Sigma_{j=1}^m\alpha_j -m) = 1
+
+\]
+
+\[
+
+\theta_m = 
+\dfrac{r_m + \alpha_m -1}
+{n + \Sigma_{j=1}^m\alpha_j -m}
+
+\]
+
+\[
+
+\therefore \hat{\theta_j}_{MAP} = 
+\dfrac{r_j + \alpha_j -1}
+{n + \Sigma_{j=1}^m\alpha_j -m}
+
+\]
+</p>
+<hr>
+<p>
+
+事後分布がディリクレとなることから \(\theta_j\) のEAP 推定値は次のようになる。
+\[
+\begin{array}{ccl}
+\hat{\theta_j}_{EAP} = E[\theta_j]
+ & = &
+ \dfrac{\alpha_j'}{\Sigma_{j=1}^m \alpha_j'}
+ \\
+
+ & = &
+ \dfrac{\alpha_j + r_j}{\Sigma_{j=1}^m (\alpha_j + r_j)}
+ \\
+
+ & = &
+ \dfrac{r_j + \alpha_j}{n + \Sigma_{j=1}^m (\alpha_j)}
+ \\
+
+\end{array}
+
+
+\]
+</p>
+<hr>
+<p>
+
+従って、事前分布が一様分布（\(\alpha_j=1\)）とすると \(\theta_j\) の推定値 (最尤推定値・MAP 推定値・EAP 推定値) はそれぞれ次のようになる。
+\[
+ \hat{\theta_j}_{MLE} = \hat{\theta_j}_{MAP} =  \dfrac{r_j}{n},
+ \ \ \ \ 
+ \hat{\theta_j}_{EAP} = \dfrac{r_j + 1}{n + m}
+ \]
+</p>
+
+</body>
+</html>
