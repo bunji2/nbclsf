@@ -16,15 +16,6 @@ type TypeWord string
 // TypeCat : カテゴリデータの型
 type TypeCat string
 
-// TypeProbWordGivenCat : P(w|C)の関数の型
-type TypeProbWordGivenCat func(TypeWord, TypeCat) float64
-
-// TypeProbDocGivenCat : P(D|C)を求める関数の型
-type TypeProbDocGivenCat func(TypeDoc, TypeCat, TypeProbWordGivenCat) float64
-
-// TypeProbCatGivenDoc : P(C|D)を求める関数の型
-type TypeProbCatGivenDoc func(TypeDoc, TypeCat, TypeProbWordGivenCat) float64
-
 // InitializeClsf : 初期化
 func InitializeClsf() (err error) {
 	numDocsCat = map[TypeCat]int{}
