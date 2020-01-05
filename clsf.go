@@ -74,23 +74,13 @@ var numAllWordsInCat map[TypeCat]int
 
 // 例：numAllWordsInCat[cat] = カテゴリ cat に含まれる単語の個数
 
-// ProbCat : P(C) を求める関数。
-//           カテゴリに含まれる文書の全文書数に対する割合
+// ProbCat : P(C) を求める関数。カテゴリに含まれる文書の全文書数に対する割合
 func ProbCat(cat TypeCat) float64 {
 	//return float64(numDocsCat[cat]+1) / float64(numAllDocs+numCats())
 	return float64(numDocsCat[cat]) / float64(numAllDocs)
 }
 
-/*
-// ProbWordGivenCat : P(w|C) を求める関数。
-//                    単語 word の単語がカテゴリ cat に含まれる確率
-func ProbWordGivenCat(word TypeWord, cat TypeCat) float64 {
-	return float64(numWordInCat[cat][word]) / float64(numAllWordsInCat[cat])
-}
-*/
-
-// ProbWordGivenCat : P(w|C) を求める関数。
-//                                 単語 word がカテゴリ cat に含まれる確率(スムージング拡張版)
+// ProbWordGivenCat : P(w|C) を求める関数。単語 word がカテゴリ cat に含まれる確率(スムージング拡張版)
 func ProbWordGivenCat(word TypeWord, cat TypeCat) float64 {
 	// ラプラススムージング
 	// 　　　　カテゴリに含まれるwordの個数　＋　　　１
@@ -102,20 +92,7 @@ func ProbWordGivenCat(word TypeWord, cat TypeCat) float64 {
 	return float64(num) / float64(sum)
 }
 
-/*
-// ProbDocGivenCat : P(D|C) を求める関数。
-// 文書 doc からなる文書がカテゴリ cat に含まれる確率
-func ProbDocGivenCat(doc TypeDoc, cat TypeCat, probWordGivenCat TypeProbWordGivenCat) (r float64) {
-	r = 1.0
-	for _, word := range doc {
-		r *= probWordGivenCat(word, cat)
-	}
-	return
-}
-*/
-
-// LogProbDocGivenCat : log P(D|C) を求める関数。
-//                      文書 doc がカテゴリ cat に含まれる確率の対数
+// LogProbDocGivenCat : log P(D|C) を求める関数。文書 doc がカテゴリ cat に含まれる確率の対数
 func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 	r = 0.0
 	for word, num := range doc {
@@ -124,19 +101,8 @@ func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 	return
 }
 
-/*
-// ProbCatGivenDoc : P(C|D) を求める関数。
-// カテゴリ cat に属する文書群に文書 doc が含まれる確率
-func ProbCatGivenDoc(doc TypeDoc, cat TypeCat, probWordGivenCat TypeProbWordGivenCat) (r float64) {
-	//fmt.Println("#", "ProbCatGivenDoc", "doc =", doc, "cat =", cat)
-	r = ProbCat(cat) * ProbDocGivenCat(doc, cat, probWordGivenCat)
-	//fmt.Println("#", "ProbCatGivenDoc", "r =", r)
-	return
-}
-*/
 
-// LogProbCatGivenDoc : log P(C|D) を求める関数
-// カテゴリ cat に属する文書群に文書 doc が含まれる確率の対数
+// LogProbCatGivenDoc : log P(C|D) を求める関数。カテゴリ cat に属する文書群に文書 doc が含まれる確率の対数
 func LogProbCatGivenDoc(doc TypeDoc, cat TypeCat) (r float64) {
 	//fmt.Println("#", "LogProbCatGivenDoc", "doc =", doc, "cat =", cat)
 	r = math.Log(ProbCat(cat)) + LogProbDocGivenCat(doc, cat)
@@ -161,8 +127,8 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 	return
 }
 
-// AddCat : カテゴリの追加。既出の場合はなにもしない。
-func AddCat(cat TypeCat) int {
+// addCat : カテゴリの追加。既出の場合はなにもしない。
+func addCat(cat TypeCat) int {
 	// カテゴリ cat が初出かどうか検査する
 	_, ok := catList[cat]
 	if !ok { // カテゴリ cat が初出の場合
@@ -178,7 +144,7 @@ func AddCat(cat TypeCat) int {
 func Train(doc TypeDoc, cat TypeCat) {
 
 	// カテゴリの追加
-	AddCat(cat)
+	addCat(cat)
 
 	// すべての文書の数をインクリメント
 	numAllDocs++
