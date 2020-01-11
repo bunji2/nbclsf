@@ -1,6 +1,11 @@
 ![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
 
-![](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+![\frac{P(C_i)P(D|C_i)}{P(D)}](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+
+![C_i](https://latex.codecogs.com/gif.latex?C_i)
+![D](https://latex.codecogs.com/gif.latex?D)
+
+![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))
 
 # ナイーブベイズ分類器 (Naive Bayes Classifier) の GoLang による実装
 
@@ -27,22 +32,22 @@
 
 ## 2.1 PredictCat (暫定版)
 
-　ある文書 *D* が与えられたときに、それがカテゴリ *C* に属する確率を *P(C|D)* と表す。 
+　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) が与えられたときに、それがカテゴリ ![C](https://latex.codecogs.com/gif.latex?C) に属する確率を ![P(C|D)](https://latex.codecogs.com/gif.latex?P(C|D)) と表す。 
 
 　カテゴリが *n* 個あり、![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
  のいずれかのとき、ある文書 *D* の属するカテゴリは ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) が最大となる  ![C_i](https://latex.codecogs.com/gif.latex?C_i)  で与える。
 
 例：ニュースのカテゴリ群が 社会,政治,国際,スポーツ,科学 の 5 種類とする。
-あるニュースの文書  が与えられそれぞれのカテゴリの確率が以下のとき、  の属するカテゴリは   が最大の値となる「スポーツ」となる。
+あるニュースの文書 ![D](https://latex.codecogs.com/gif.latex?D) が与えられそれぞれのカテゴリの確率が以下のとき、属するカテゴリは ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))  が最大の値となる「スポーツ」となる。
 
-表 2.1.1
+> 表 2.1.1
+> 
+> |![C_i](https://latex.codecogs.com/gif.latex?C_i)|社会|政治|国際|スポーツ|科学|
+> |:---:|:---:|:---:|:---:|:---:|:---:|
+> |![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))|0.12|0.17|0.05|0.51|0.15|
 
-|社会|政治|国際|スポーツ|科学|
-|:---:|:---:|:---:|:---:|:---:|
-|0.12|0.17|0.05|0.51|0.15|
 
-
-　 を求める関数を ProbCatGivenDoc とする。
+　![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) を求める関数を ProbCatGivenDoc とする。
 
 　ある文書がどのカテゴリに属するかを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
 
