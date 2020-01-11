@@ -49,12 +49,11 @@
 
 　![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) を求める関数を ProbCatGivenDoc とする。
 
-　ある文書がどのカテゴリに属するかを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
+　ある文書が属するカテゴリを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
 
 
 ソースコード 1
-```
-// catList : カテゴリのリスト
+```// catList : カテゴリのリスト
 var catList []TypeCat
 
 // PredictCat : 与えられた文書 doc のカテゴリを推定する関数。暫定版。
