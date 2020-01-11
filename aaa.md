@@ -2,7 +2,7 @@
 
 ![](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
 
-#ナイーブベイズ分類器 (Naive Bayes Classifier) の GoLang による実装
+# ナイーブベイズ分類器 (Naive Bayes Classifier) の GoLang による実装
 
 
 最終更新日：2020/01/07
@@ -11,7 +11,7 @@ AUTHOR：Bunji Square
 
 
 
-##1. はじめに
+## 1. はじめに
 
 　「分類器」とは、ある文書を入力するとその文書が属するカテゴリを推定し出力するシステムを指すものとする。本稿はこの分類器をナイーブベイズを用いたモデルで示し、そして GoLang による実装例を示す。
 
@@ -19,7 +19,7 @@ AUTHOR：Bunji Square
 
 
 
-##2. 推定
+## 2. 推定
 
 　本節では、与えられた文書に対するカテゴリの推定について示す。
 
@@ -117,7 +117,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
 
 
-##2.3 ProbCat --- 
+## 2.3 ProbCat --- 
 
 　 はカテゴリー  である確率である。ここでは全文書における、カテゴリー  に属す文書の割合とみなし、単純に文書の個数の割合で考えることにする。
 
@@ -135,7 +135,7 @@ func ProbCat(cat TypeCat) float64 {
 ```
 
 
-##2.4 ProbDocGivenCat --- 
+## 2.4 ProbDocGivenCat --- 
 
 
 はカテゴリー  （に属する文書群）に文書  が含まれる確率である。
@@ -175,7 +175,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 
 
 
-##2.5 ProbWordGivenCat --- 
+## 2.5 ProbWordGivenCat --- 
 
 　単語の出現確率  は のパラメータである。実測した単語  の出現数をもとにこのパラメータを推定するにあたり、まず最尤推定値 (Maximum Likelihood Estimator) を使う。
 
@@ -212,7 +212,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 }
 ```
 
-##2.6 ProbWordGivenCat (スムージング拡張版) --- 
+## 2.6 ProbWordGivenCat (スムージング拡張版) --- 
 
 　上の実装では、文書の中に一つでもカテゴリ  に含まれない単語が存在すると、他の単語の確率が高いものだったとしても、全体として  が 0 となってしまうという問題がある。
 　これを回避するため「加算スムージング」（あるいは「ラプラススムージング」）を使う。重複のない全単語の個数を  とする。 
@@ -238,7 +238,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 
 　上記スムージングを施しても  の条件を満たすことに注意。
 
-##2.7 LogProbDocGivenCat --- 
+## 2.7 LogProbDocGivenCat --- 
 
 　上の関数 ProbDocGivenCat の実装では、単語数が多いと分母の値が非常に大きくなりアンダーフローが起きる恐れがあるので、これを回避すべく対数をとる。
 
@@ -268,7 +268,7 @@ func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 ```
 
 
-##2.7 LogProbCatGivenDoc --- 
+## 2.8 LogProbCatGivenDoc --- 
 
 　以上を踏まえると、冒頭に示した関数 ProbCatGivenDoc のアンダーフローを考慮した対数版 LogProbCatGivenDoc は次のようになる。
 
@@ -283,7 +283,7 @@ func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
 
 
-##2.8 Predict (最終版)
+## 2.9 Predict (最終版)
 
 　冒頭に示した関数 PredictCat は LogProbCatGivenDoc を使って次のように実装される。
 
@@ -304,12 +304,12 @@ func Predict(doc TypeDoc) (cat TypeCat) {
 }
 ```
 
-##3. 学習
+## 3. 学習
 
 　本節では 2 節に示したカテゴリの推定に必要なデータを作成するための「学習」について示す。
 
 
-##3.1 Train
+## 3.1 Train
 
 　教師データとして、文書 doc とそのカテゴリ cat が与えられたとする。使用する変数に対して、以下の表に示す処理を実施する必要がある。
 
@@ -389,7 +389,7 @@ func Train(doc TypeDoc, cat TypeCat) {
 }
 ```
 
-##4. 評価
+## 4. 評価
 
 　本稿に示したカテゴリの推定方式について、Livedoor ニュースコーパスを用いて精度を評価した。Livedoor ニュースコーパスには９つのカテゴリがあり、7367 の文書からなる。今回はこのコーパスの 80% を教師データとし、残り 20% を試験データとした場合の、指標を算出した。
 
@@ -467,13 +467,13 @@ Overall Accuracy
 
 　単純な実装内容にも関わらず、90% 超の精度でカテゴリ推定できることがわかった。
 
-##5. おわりに
+## 5. おわりに
 
 　本稿では、文書のカテゴリを推定する分類器をナイーブベイズを用いたモデルで示し、そして GoLang による実装例を示した。また、Livedoor ニュースコーパスを用いて評価した結果を示した。今後はマルチラベル分類器に拡張していく予定である。
 
 
 
-##参考
+## 参考
 
 Livedoor ニュースコーパス
 https://www.rondhuit.com/download.html#ldcc
