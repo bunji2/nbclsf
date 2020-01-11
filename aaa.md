@@ -10,6 +10,14 @@
 
 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))
 
+![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D))
+
+![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))
+
+![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i))
+
+![P(D)](https://latex.codecogs.com/gif.latex?P(D))
+
 # ナイーブベイズ分類器 (Naive Bayes Classifier) の GoLang による実装
 
 
@@ -56,6 +64,7 @@
 
 
 ソースコード 1
+
 ```// catList : カテゴリのリスト
 var catList []TypeCat
 
@@ -82,6 +91,7 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) はベイズの定理により次のように表される。
 
 > 式
+> 
 > ![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
 
 
@@ -92,30 +102,31 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 ![P(D)](https://latex.codecogs.com/gif.latex?P(D))
 
 > 表 2.2.1
-
-|式|意味|
-|:---:|:---|
-|![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) である確率|
-|![P(D%7CC_i)](https://latex.codecogs.com/gif.latex?P(D%7CC_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率|
-|![P(D)](https://latex.codecogs.com/gif.latex?P(D))|文書 ![D](https://latex.codecogs.com/gif.latex?D) が成立する確率|
+> 
+> |式|意味|
+> |:---:|:---|
+> |![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) である確率|
+> |![P(D%7CC_i)](https://latex.codecogs.com/gif.latex?P(D%7CC_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率|
+> |![P(D)](https://latex.codecogs.com/gif.latex?P(D))|文書 ![D](https://latex.codecogs.com/gif.latex?D) が成立する確率|
 
 　また ![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は以下を満たす。
 
 > 式
+> 
 > ![P(D)=ΣP(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D)=\sum_{i=1}^{n}P(C_i)P(D|C_i))
 
 　![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は ![C_i](https://latex.codecogs.com/gif.latex?C_i)
  に関係なく固定の値であること、また、カテゴリの推定は ![P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i)P(D|C_i)) の大小関係のみに基づいていることから、次の比例関係に注目すればよい。
 
 > 式
+> 
 > ![P(C_i|D)∝P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i|D)\propto&space;P(C_i)P(D|C_i))
 
 　 を計算する関数 ProbCat と  を計算する関数 ProbDocGivenCat があるとすれば、 の「比」を計算する関数 ProbCatGivenDoc の実装は次のような形になる。
 
 
 ソースコード 2
-```
-// ProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比を求める関数。
+```// ProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比を求める関数。
 // 暫定版。
 func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 	return ProbCat(cat) * ProbDocGivenCat(doc, cat)
