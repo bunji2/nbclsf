@@ -1,8 +1,11 @@
 ![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
 
-![\frac{P(C_i)P(D|C_i)}{P(D)}](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+![P(C_i|D)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+
+![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D))
 
 ![C_i](https://latex.codecogs.com/gif.latex?C_i)
+
 ![D](https://latex.codecogs.com/gif.latex?D)
 
 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))
@@ -78,22 +81,27 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 
 　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) はベイズの定理により次のように表される。
 
-![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+> 式
+> ![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
 
 
-　ここで、 はそれぞれ次の確率を示す。
+　ここで、![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D)) はそれぞれ次の確率を示す。
 
-表 2.2.1
+![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))
+![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i))
+![P(D)](https://latex.codecogs.com/gif.latex?P(D))
 
-カテゴリー  である確率
+> 表 2.2.1
+> |式|意味|
+> |:---:|:---|
+> |![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) である確率|
+> |![P(D%7CC_i)](https://latex.codecogs.com/gif.latex?P(D%7CC_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率|
+> |![P(D)](https://latex.codecogs.com/gif.latex?P(D))|文書 ![D](https://latex.codecogs.com/gif.latex?D) が成立する確率|
 
-カテゴリー  に文書  が含まれる確率
+　また ![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は以下を満たす。
 
-文書  が成立する確率
-
-　また  は以下を満たす。
-
-
+> 式
+> https://latex.codecogs.com/gif.latex?P(D)=\sum_{i=1}^{n}P(C_i)P(D|C_i)
 
 　 は  に関係なく固定の値であること、また、カテゴリの推定は  の大小関係のみに基づいていることから、次の比例関係に注目すればよい。
 
