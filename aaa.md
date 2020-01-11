@@ -74,10 +74,11 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　上の実装は暫定版である。後ほど最終版を示す。
 
 
-##2.2 ProbCatGivenDoc (暫定版) --- 
+## 2.2 ProbCatGivenDoc (暫定版)
 
-　ある文書  がカテゴリ  に属する確率   はベイズの定理により次のように表される。
+　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) はベイズの定理により次のように表される。
 
+![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
 
 
 　ここで、 はそれぞれ次の確率を示す。
