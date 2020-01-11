@@ -1,1 +1,1 @@
-![C1...Cn](https://www.codecogs.com/eqnedit.php?latex=C_1%2C%20...%2C%20C_i%2C%20...%2C%20C_n%0)
+![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
