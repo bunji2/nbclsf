@@ -64,7 +64,7 @@
 　ある文書が属するカテゴリを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
 
 
-```
+```golang
 // ソースコード 1
 
 // catList : カテゴリのリスト
@@ -130,7 +130,7 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) を計算する関数 ProbCat と ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を計算する関数 ProbDocGivenCat があるとすれば、 の「比」を計算する関数 ProbCatGivenDoc の実装は次のような形になる。
 
 
-```
+```go
 // ソースコード 2
 
 // ProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比を求める関数。
