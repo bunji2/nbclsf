@@ -51,21 +51,23 @@
 例：ニュースのカテゴリ群が 社会,政治,国際,スポーツ,科学 の 5 種類とする。
 あるニュースの文書 ![D](https://latex.codecogs.com/gif.latex?D) が与えられそれぞれのカテゴリの確率が以下のとき、属するカテゴリは ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))  が最大の値となる「スポーツ」となる。
 
+> 
 > 表 2.1.1
 > 
 > |![C_i](https://latex.codecogs.com/gif.latex?C_i)|社会|政治|国際|スポーツ|科学|
 > |:---:|:---:|:---:|:---:|:---:|:---:|
 > |![P(C_i%7CD)](https://latex.codecogs.com/gif.latex?P(C_i%7CD))|0.12|0.17|0.05|0.51|0.15|
-
+> 
 
 　![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) を求める関数を ProbCatGivenDoc とする。
 
 　ある文書が属するカテゴリを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
 
-> 
-> ソースコード 1
-> 
-> ```// catList : カテゴリのリスト
+
+```
+// ソースコード 1
+
+// catList : カテゴリのリスト
 var catList []TypeCat
 
 // PredictCat : 与えられた文書 doc のカテゴリを推定する関数。暫定版。
@@ -82,7 +84,6 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 	return
 }
 ```
-> 
 
 　上の実装は暫定版である。後ほど最終版を示す。
 
@@ -129,8 +130,10 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) を計算する関数 ProbCat と ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を計算する関数 ProbDocGivenCat があるとすれば、 の「比」を計算する関数 ProbCatGivenDoc の実装は次のような形になる。
 
 
-ソースコード 2
-```// ProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比を求める関数。
+```
+// ソースコード 2
+
+// ProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比を求める関数。
 // 暫定版。
 func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 	return ProbCat(cat) * ProbDocGivenCat(doc, cat)
@@ -141,7 +144,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
 
 
-## 2.3 ProbCat --- 
+## 2.3 ProbCat
 
 　 はカテゴリー  である確率である。ここでは全文書における、カテゴリー  に属す文書の割合とみなし、単純に文書の個数の割合で考えることにする。
 
