@@ -44,7 +44,7 @@
 > 
 > |![C_i](https://latex.codecogs.com/gif.latex?C_i)|社会|政治|国際|スポーツ|科学|
 > |:---:|:---:|:---:|:---:|:---:|:---:|
-> |![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))|0.12|0.17|0.05|0.51|0.15|
+> |![P(C_i%7CD)](https://latex.codecogs.com/gif.latex?P(C_i%7CD))|0.12|0.17|0.05|0.51|0.15|
 
 
 　![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) を求める関数を ProbCatGivenDoc とする。
