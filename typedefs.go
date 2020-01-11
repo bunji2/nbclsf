@@ -11,3 +11,6 @@ type TypeWord int
 
 // TypeCat : カテゴリデータの型
 type TypeCat int
+
+// TypeMultiLabel : マルチラベルデータの型
+type TypeMultiLabel []int
