@@ -74,9 +74,9 @@ var catList []TypeCat
 func PredictCat(doc TypeDoc) (cat TypeCat) {
 	cat = catList[0]
 	maxValue := ProbCatGivenDoc(doc, cat)
-	for i:=1; i&lt;len(catList); i++ {
+	for i:=1; i<len(catList); i++ {
 		result := probCatGivenDoc(doc, catList[i])
-		if result &gt; maxValue {
+		if result > maxValue {
 			maxValue = result
 			cat = catList[i]
 		}
@@ -93,7 +93,7 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) はベイズの定理により次のように表される。
 
 > 
-> 式
+> 式 2.2.1
 > 
 > ![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
 > 
@@ -113,7 +113,7 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 　また ![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は以下を満たす。
 
 > 
-> 式
+> 式 2.2.2
 > 
 > ![P(D)=ΣP(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D)=\sum_{i=1}^{n}P(C_i)P(D|C_i))
 > 
@@ -122,7 +122,7 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
  に関係なく固定の値であること、また、カテゴリの推定は ![P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i)P(D|C_i)) の大小関係のみに基づいていることから、次の比例関係に注目すればよい。
 
 > 
-> 式
+> 式 2.2.3
 > 
 > ![P(C_i|D)∝P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i|D)\propto&space;P(C_i)P(D|C_i))
 > 
@@ -150,8 +150,9 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
  を求める関数 ProbCat は次の実装で与えることができる。
 
-ソースコード 3
-```
+```go
+// ソースコード 3
+
 var numAllDocs int // すべての文書の数
 var numDocsCat map[TypeCat]int // 各カテゴリごとの文書の数
 
@@ -183,8 +184,9 @@ func ProbCat(cat TypeCat) float64 {
 
 　確率  を求める関数を ProbWordGivenCat とするとき、 を求める関数 ProbDocGivenCat は次のようになる。
 
-ソースコード 4
-```
+```go
+// ソースコード 4
+
 // TypeDoc : 文書の型。各単語の出現個数のmap。
 type TypeDoc map[TypeWord]int
 // 例：doc[word] = 単語 word が文書 doc に含まれる個数
@@ -202,7 +204,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 
 
 
-## 2.5 ProbWordGivenCat --- 
+## 2.5 ProbWordGivenCat
 
 　単語の出現確率  は のパラメータである。実測した単語  の出現数をもとにこのパラメータを推定するにあたり、まず最尤推定値 (Maximum Likelihood Estimator) を使う。
 
@@ -223,8 +225,9 @@ j= 単語jを含みかつCiに属する文書の個数の合計Ciに属する文
 
 　numWordInCat[][] を文書  に含まれる単語  がカテゴリ  に含まれる個数とすれば、 を計算する関数 ProbWordGivenCat は次のように与えることができる。
 
-ソースコード 5
-```
+```go
+// ソースコード 5
+
 // numWordInCat: ある単語があるカテゴリに含まれる個数
 var numWordInCat map[TypeCat]map[TypeWord]int
 // 例：numWordInCat[cat][word] = 単語 word がカテゴリ cat に含まれる個数
@@ -250,9 +253,9 @@ j= Ciに属する文書における単語jの出現回数の合計  + 1 Ciに属
 　これは期待事後確率推定値 (Expected a Posterior Estimator; EAP 推定値) に相当する。
 この推定値は特に標本数が少ない場合に効果があり、標本数が増えるにつれて先の最尤推定値に近づいていく。
 
-ソースコード 6
+```go
+// ソースコード 6
 
-```
 var numAllWords int // 全単語数
 
 // ProbWordGivenCat : 単語 word がカテゴリ cat に含まれる確率(スムージング拡張版)
@@ -265,21 +268,15 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 
 　上記スムージングを施しても  の条件を満たすことに注意。
 
-## 2.7 LogProbDocGivenCat --- 
+## 2.7 LogProbDocGivenCat
 
 　上の関数 ProbDocGivenCat の実装では、単語数が多いと分母の値が非常に大きくなりアンダーフローが起きる恐れがあるので、これを回避すべく対数をとる。
 
-
-
 　このようにして ProbDocGivenCat の対数を計算する LogProbDocGivenCat の実装は継のようになる。
 
+```go
+// ソースコード 6
 
-
-
-
-ソースコード 6
-
-```
 // TypeDoc : 文書の型。各単語の出現個数のmap。
 type TypeDoc map[TypeWord]int
 // 例：doc[word] = 単語 word が文書 doc に含まれる個数
@@ -295,13 +292,13 @@ func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 ```
 
 
-## 2.8 LogProbCatGivenDoc --- 
+## 2.8 LogProbCatGivenDoc
 
 　以上を踏まえると、冒頭に示した関数 ProbCatGivenDoc のアンダーフローを考慮した対数版 LogProbCatGivenDoc は次のようになる。
 
-ソースコード 7
+```go
+// ソースコード 7
 
-```
 // LogProbCatGivenDoc : 文書 doc がカテゴリ cat に含まれる確率の比の対数
 func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 	return math.Log(ProbCat(cat)) + LogProbDocGivenCat(doc, cat)
@@ -314,8 +311,9 @@ func LogProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
 　冒頭に示した関数 PredictCat は LogProbCatGivenDoc を使って次のように実装される。
 
-ソースコード 8
-```
+```go
+// ソースコード 8
+
 // PredictC : 与えられた文書 doc のカテゴリを推定する
 func Predict(doc TypeDoc) (cat TypeCat) {
 	cat = catList[0]
@@ -378,8 +376,9 @@ Train
 　与えられた文書とカテゴリで学習する関数 Train の実装例は次のようになる。
 
 
-ソースコード 9
-```
+```go
+// ソースコード 9
+
 // wordList : 単語のリスト
 var wordList map[TypeWord]int
 
@@ -474,7 +473,7 @@ Accuracy
 0.989824
 0.980326
 
-　また全体の指標は次のようになった。
+　また指標の平均は次のようになった。
 
 表 4.2
 Micro Precision
