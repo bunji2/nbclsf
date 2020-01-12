@@ -233,7 +233,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 > 
 > 式 2.5.2
 > 
-> ![theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}}_{EAP}=\frac{n_{ij} + 1}{\sum_{j=1}^{m}n_{ij} + m})
+> ![theta_{ij}](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{EAP}=\frac{n_{ij} + 1}{\sum_{j=1}^{m} n_{ij} + m})
 > 
 
 　これは事前分布を一様分布と想定した場合の期待事後確率推定値 (Expected a Posterior Estimator; EAP 推定値) に相当する。
