@@ -158,12 +158,13 @@ func ProbCat(cat TypeCat) float64 {
 
  > 
  > 式 2.4.1
+ > 
  > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j})
  > 
  
 
 
-　確率  を求める関数を ProbWordGivenCat とするとき、 を求める関数 ProbDocGivenCat は次のようになる。
+　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
 
 ```go
 // ソースコード 4
@@ -187,13 +188,17 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 
 ## 2.5 ProbWordGivenCat
 
-　単語の出現確率  は のパラメータである。実測した単語  の出現数をもとにこのパラメータを推定するにあたり、まず最尤推定値 (Maximum Likelihood Estimator) を使う。
+　単語の出現確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) は確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) のパラメータである。単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) の出現する個数を ![n_j](https://latex.codecogs.com/gif.latex?n_j) を実測してパラメータを推定するにあたり、まず最尤推定値 (Maximum Likelihood Estimator) を使う。
 
- を下に示すような尤度関数  とみなし、これが最大になる を推定することになる。
+ ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を下に示すような尤度関数とみなし、これが最大になるパラメータを推定することになる。
 
+> 
+> 式 2.5.1
+> 
+> ![](https://latex.codecogs.com/gif.latex?P(D|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{1}\cdots&space;n_{m})=\prod_{j=1}^{m}\theta_{ij}^{n_j})
+> 
 
-
-　確率  を推定する関数 ProbWordGivenCat の実装を考えるが、ここで２つの案が考えられる。
+　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を推定する関数 ProbWordGivenCat の実装を考えるが、ここで２つの案が考えられる。
 
 案1：カテゴリー  に属する文書に出現する単語群に、文書  に出現する単語群がどれだけ含まれるかで考える。
 
