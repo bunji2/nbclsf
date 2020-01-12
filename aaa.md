@@ -227,11 +227,12 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 
 ## 2.6 ProbWordGivenCat (スムージング拡張版)
 
-　上の実装では、文書の中に一つでもカテゴリ  に含まれない単語が存在すると、他の単語の確率が高いものだったとしても、全体として  が 0 となってしまうという問題がある。
-　これを回避するため「加算スムージング」（あるいは「ラプラススムージング」）を使う。重複のない全単語の個数を  とする。 
+　上の実装では、文書の中に一つでもカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に含まれない単語が存在すると、他の単語の確率が高いものだったとしても、全体として ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) が 0 となってしまうという問題がある。
+ 
+　これを回避するため「加算スムージング」（あるいは「ラプラススムージング」）を使う。重複のない全単語の個数を ![m](https://latex.codecogs.com/gif.latex?m) とすると次のように示される。
 
 > 
-> 式 2.5.2
+> 式 2.6.1
 > 
 > ![EAP](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{EAP}=\frac{n_{ij}&space;&plus;&space;1}{\sum_{j=1}^{m}&space;n_{ij}&space;&plus;&space;m})
 > 
