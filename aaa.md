@@ -198,12 +198,12 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > ![](https://latex.codecogs.com/gif.latex?P(D|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{1}\cdots&space;n_{m})=\prod_{j=1}^{m}\theta_{ij}^{n_j})
 > 
 
-単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定地は次のようになる。
+単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
 
 > 
 > 式 2.5.2
 > 
-> ![](https://latex.codecogs.com/gif.latex?{\theta_{j}}_{MLE}=\frac{n_j}{\sum_{j=1}^{m}n_{ij}})
+> ![theta_{ij}](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{MLE}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
 > 
 
 　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
@@ -230,10 +230,13 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 　上の実装では、文書の中に一つでもカテゴリ  に含まれない単語が存在すると、他の単語の確率が高いものだったとしても、全体として  が 0 となってしまうという問題がある。
 　これを回避するため「加算スムージング」（あるいは「ラプラススムージング」）を使う。重複のない全単語の個数を  とする。 
 
+> 
+> 式 2.5.2
+> 
+> ![theta_{ij}](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{MLE}=\frac{n_{ij} + 1}{\sum_{j=1}^{m}n_{ij} + m})
+> 
 
-j= Ciに属する文書における単語jの出現回数の合計  + 1 Ciに属する文書における全単語の出現回数の合計  +  m
-
-　これは期待事後確率推定値 (Expected a Posterior Estimator; EAP 推定値) に相当する。
+　これは事前分布を一様分布と想定した場合の期待事後確率推定値 (Expected a Posterior Estimator; EAP 推定値) に相当する。
 この推定値は特に標本数が少ない場合に効果があり、標本数が増えるにつれて先の最尤推定値に近づいていく。
 
 ```go
