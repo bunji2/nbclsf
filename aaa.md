@@ -1,31 +1,8 @@
-![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
-
-![P(C_i|D)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
-
-![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D))
-
-![C_i](https://latex.codecogs.com/gif.latex?C_i)
-
-![D](https://latex.codecogs.com/gif.latex?D)
-
-![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D))
-
-![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D))
-
-![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))
-
-![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i))
-
-![P(D)](https://latex.codecogs.com/gif.latex?P(D))
-
 # ナイーブベイズ分類器 (Naive Bayes Classifier) の GoLang による実装
 
 
 * 最終更新日：2020/01/07
 * AUTHOR：Bunji Square
-
-
-
 
 ## 1. はじめに
 
@@ -146,9 +123,9 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) float64 {
 
 ## 2.3 ProbCat
 
-　 はカテゴリー  である確率である。ここでは全文書における、カテゴリー  に属す文書の割合とみなし、単純に文書の個数の割合で考えることにする。
+　![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) はカテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) である確率である。ここでは全文書における、カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属す文書の割合とみなし、単純に文書の個数の割合で考えることにする。
 
- を求める関数 ProbCat は次の実装で与えることができる。
+ ![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) を求める関数 ProbCat は次の実装で与えることができる。
 
 ```go
 // ソースコード 3
@@ -163,22 +140,26 @@ func ProbCat(cat TypeCat) float64 {
 ```
 
 
-## 2.4 ProbDocGivenCat --- 
+## 2.4 ProbDocGivenCat
+
+ ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) はカテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) （に属する文書群）に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率である。
+
+　しかし文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリーに属する文書と一致するケースがほぼないと考えられるため、文書数だけでは計算することができない。
 
 
-はカテゴリー  （に属する文書群）に文書  が含まれる確率である。
+　ここで文書 ![D](https://latex.codecogs.com/gif.latex?D) に出現する単語群 ![w_j](https://latex.codecogs.com/gif.latex?w_j) に注目し、次の仮定をおくことにする。
 
-　しかし文書  がカテゴリーに属する文書と一致するケースがほぼないと考えられるため、文書数だけでは計算することができない。
+* 文書は単語の並びである
+* 文書中にある単語が現れる確率は他の単語が現れる確率に依存せず独立である
+* 文書中にある単語が現れる確率は文書中の位置に依存しない
 
+　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i))
+ を、文書 ![D](https://latex.codecogs.com/gif.latex?D) に含まれる単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する確率とし、単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) が文書 ![D](https://latex.codecogs.com/gif.latex?D) に出現する個数を ![n_j](https://latex.codecogs.com/gif.latex?n_j) とすれば、  は次のような多項分布関数で表される。
 
-　ここで文書  に出現する単語群  に注目し、次の仮定をおくことにする。
-
-文書は単語の並びである
-文書中にある単語が現れる確率は他の単語が現れる確率に依存せず独立である
-文書中にある単語が現れる確率は文書中の位置に依存しない
-
-　確率  を、文書  に含まれる単語  がカテゴリ  に出現する確率とし、単語  が文書  に出現する個数を  とすれば、  は次のような多項分布関数で表される。
-
+ > 
+ > 式 2.4.1
+ > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j})
+ > 
  
 
 
