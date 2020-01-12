@@ -198,18 +198,15 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > ![](https://latex.codecogs.com/gif.latex?P(D|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{1}\cdots&space;n_{m})=\prod_{j=1}^{m}\theta_{ij}^{n_j})
 > 
 
-　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を推定する関数 ProbWordGivenCat の実装を考えるが、ここで２つの案が考えられる。
+単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定地は次のようになる。
 
-案1：カテゴリー  に属する文書に出現する単語群に、文書  に出現する単語群がどれだけ含まれるかで考える。
+> 
+> 式 2.5.2
+> 
+> ![](https://latex.codecogs.com/gif.latex?{\theta_{j}}_{MLE}=\frac{n_j}{\sum_{j=1}^{m}n_{ij}})
+> 
 
-j= Ciに属する文書における単語jの出現回数の合計Ciに属する文書における全単語の出現回数の合計
-    
-案2：文書  に含まれる各単語を含む文書がどれだけカテゴリー  に属しているかで考える。
-j= 単語jを含みかつCiに属する文書の個数の合計Ciに属する文書の個数の合計
-
-　一つの文書には異なる単語が複数含まれることが簡単に予想されることから、案 2 では  の条件を満たすことができない。ここでは案 1 を実装する。
-
-　numWordInCat[][] を文書  に含まれる単語  がカテゴリ  に含まれる個数とすれば、 を計算する関数 ProbWordGivenCat は次のように与えることができる。
+　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
 
 ```go
 // ソースコード 5
@@ -228,7 +225,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 }
 ```
 
-## 2.6 ProbWordGivenCat (スムージング拡張版) --- 
+## 2.6 ProbWordGivenCat (スムージング拡張版)
 
 　上の実装では、文書の中に一つでもカテゴリ  に含まれない単語が存在すると、他の単語の確率が高いものだったとしても、全体として  が 0 となってしまうという問題がある。
 　これを回避するため「加算スムージング」（あるいは「ラプラススムージング」）を使う。重複のない全単語の個数を  とする。 
