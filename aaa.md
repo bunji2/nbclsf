@@ -258,7 +258,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 }
 ```
 
-　上記スムージングを施しても ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_{ij}=1) の条件を満たすことに注意。
+　上記スムージングを施しても ![](https://latex.codecogs.com/gif.latex?\Sigma_{j=1}\theta_{ij}=1) の条件を満たすことに注意。
 
 ## 2.7 LogProbDocGivenCat
 
