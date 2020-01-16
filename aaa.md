@@ -414,6 +414,7 @@ func Train(doc TypeDoc, cat TypeCat) {
 
 > 
 > 表 4.2
+> 
 > |Micro Precision|0.913161|
 > |:--|:--|
 > |Micro Recall|0.913161|
@@ -421,7 +422,7 @@ func Train(doc TypeDoc, cat TypeCat) {
 > |Macro Precision|0.913058|
 > |Macro Recall|0.914983|
 > |Macro F-Measure|0.914019|
-> |Overall Accuracy0.980703|
+> |Overall Accuracy|0.980703|
 > 
 
 　単純な実装内容にも関わらず、適合率・再現率とも 90% 超の精度でカテゴリ推定できることがわかった。
