@@ -209,7 +209,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > 
 > 式 2.5.2
 > 
-> ![MLE](https://latex.codecogs.com/gif.latex?\hat{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
+> ![MLE](https://latex.codecogs.com/gif.latex?\hat{\theta_{ij}}=\frac{\sum_{k=1}^ln_{kj}}{\sum_{j=1}^{m}\sum_{k=1}^ln_{kj}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
 > 
 > ![](https://latex.codecogs.com/gif.latex?n_{ij}&space;=&space;\sum_{k=1}^{l}n_{kj})
 
