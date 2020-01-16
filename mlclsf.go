@@ -1,5 +1,6 @@
-// ナイーブベイズによるマルチラベル分類器。
-// Naive Bayes Classifier for multi-label
+// ナイーブベイズによるマルチラベル分類器の実験的実装
+// An experimental implementation of Naive Bayes Classifier for multi-label
+// [TODO] 各ラベルごとの TypeClsf の配列として実装すると、それぞれ同じ WordList を保持してしまい無駄が多い。効率的な実装を今後行う。
 
 package nbclsf
 
