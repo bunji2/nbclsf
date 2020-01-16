@@ -1,2 +1,0 @@
-# nbclsf
-Naive Bayes Classifier
