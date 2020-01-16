@@ -147,19 +147,19 @@ func ProbCat(cat TypeCat) float64 {
 　しかし文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリーに属する文書と一致するケースがほぼないと考えられるため、文書数だけでは計算することができない。
 
 
-　ここで文書 ![D](https://latex.codecogs.com/gif.latex?D) に出現する単語群 ![w_j](https://latex.codecogs.com/gif.latex?w_j) に注目し、次の仮定をおくことにする。
+　ここで文書に出現する単語群に注目し、次の仮定をおくことにする。
 
-* 文書は単語の並びである
+* 文書は単語の集合である
 * 文書中にある単語が現れる確率は他の単語が現れる確率に依存せず独立である
 * 文書中にある単語が現れる確率は文書中の位置に依存しない
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i))
- を、文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) に含まれる単語 ![w_{kj}](https://latex.codecogs.com/gif.latex?w_{kj}) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する確率とし、単語 ![w_{kj}](https://latex.codecogs.com/gif.latex?w_{kj}) が文書 ![D](https://latex.codecogs.com/gif.latex?D_k) に出現する個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とすれば、  は次のような多項分布関数で表される。
+ を、文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) に含まれる単語 ![w_{j}](https://latex.codecogs.com/gif.latex?w_{j}) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する確率とし、単語 ![w_{j}](https://latex.codecogs.com/gif.latex?w_{j}) が文書 ![D](https://latex.codecogs.com/gif.latex?D_k) に出現する個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とすれば、  は次のような多項分布関数で表される。
 
  > 
  > 式 2.4.1
  > 
- > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}})
+ > ![P(D_k|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}}](https://latex.codecogs.com/gif.latex?P(D_k|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}})
  > 
  > ただし以下を満たすものとする
  > 
@@ -168,7 +168,7 @@ func ProbCat(cat TypeCat) float64 {
  > ![](\sum_{j=1}^m\theta_{ij}=1)
  > 
 
-　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
+　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D_k|C_i)](https://latex.codecogs.com/gif.latex?P(D_k|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
 
 ```go
 // ソースコード 4
@@ -208,6 +208,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > 式 2.5.2
 > 
 > ![MLE](https://latex.codecogs.com/gif.latex?\hat{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
+> 
 > 
 
 　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
