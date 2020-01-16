@@ -205,7 +205,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > 
 > 式 2.5.2
 > 
-> ![MLE](https://latex.codecogs.com/gif.latex?\^{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
+> ![MLE](https://latex.codecogs.com/gif.latex?\caret{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
 > 
 
 　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
