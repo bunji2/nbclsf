@@ -258,11 +258,18 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 }
 ```
 
-　上記スムージングを施しても ![](https://latex.codecogs.com/gif.latex?\Sigma_{j=1}\theta_{ij}=1) の条件を満たすことに注意。
+　上記スムージングを施しても ![](https://latex.codecogs.com/gif.latex?\Sigma_{j}\theta_{ij}=1) の条件を満たすことに注意。
 
 ## 2.7 LogProbDocGivenCat
 
 　上の関数 ProbDocGivenCat の実装では、単語数が多いと分母の値が非常に大きくなりアンダーフローが起きる恐れがあるので、これを回避すべく対数をとる。
+
+> 
+> 式 2.7.1
+> 
+> ![](https://latex.codecogs.com/gif.latex?\log&space;P(D_k|C_i)=\log&space;L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots&space;n_{km})=\sum_{j=1}^{m}n_{kj}\theta_{ij})
+> 
+
 
 　このようにして ProbDocGivenCat の対数を計算する LogProbDocGivenCat の実装は次のようになる。
 
