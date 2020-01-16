@@ -161,7 +161,7 @@ func ProbCat(cat TypeCat) float64 {
  > 
  > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j})
  > 
- 
+ > (![](https://latex.codecogs.com/gif.latex?0<\theta_j<1,\&space;\sum_{j=1}^m\theta_j=1))
 
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
