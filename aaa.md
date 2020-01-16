@@ -163,7 +163,7 @@ func ProbCat(cat TypeCat) float64 {
  > 
  > ただし以下を満たすものとする
  > 
- > ![](https://latex.codecogs.com/gif.latex?0<\theta_j<1,\&space;\sum_{j=1}^m\theta_j=1))
+ > ![](https://latex.codecogs.com/gif.latex?0<\theta_{ij}<1,\&space;\sum_{j=1}^m\theta_{ij}=1))
 
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
@@ -255,7 +255,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 }
 ```
 
-　上記スムージングを施しても  の条件を満たすことに注意。
+　上記スムージングを施しても ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_{ij}=1) の条件を満たすことに注意。
 
 ## 2.7 LogProbDocGivenCat
 
@@ -405,6 +405,7 @@ func Train(doc TypeDoc, cat TypeCat) {
 > 
 > 表 4.2
 > |Micro Precision|0.913161|
+> |:--|:--|
 > |Micro Recall|0.913161|
 > |Micro F-Measure|0.913161|
 > |Macro Precision|0.913058|
