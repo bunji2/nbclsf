@@ -2,7 +2,7 @@
 
 
 * 最終更新日：2020/01/07
-* AUTHOR：![bunji2](https://latex.codecogs.com/gif.latex?Bunji^2) (Bunji Square)
+* AUTHOR：Bunji² (Bunji Square) 
 
 ## 1. はじめに
 
