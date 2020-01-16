@@ -202,9 +202,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > ![](https://latex.codecogs.com/gif.latex?P(D_k|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots&space;n_{km})=\prod_{j=1}^{m}\theta_{ij}^{n_kj})
 > 
 
-カテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する各文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k)に含まれる単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) の個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
-
-単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
+カテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する各文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k)に含まれる単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) の個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とし、単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
 
 > 
 > 式 2.5.2
