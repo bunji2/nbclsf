@@ -267,7 +267,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 > 
 > 式 2.7.1
 > 
-> ![](https://latex.codecogs.com/gif.latex?\log&space;P(D_k|C_i)=\log&space;L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots&space;n_{km})=\sum_{j=1}^{m}n_{kj}\theta_{ij})
+> ![](https://latex.codecogs.com/gif.latex?\log&space;P(D_k|C_i)=\log&space;L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots&space;n_{km})=\sum_{j=1}^{m}n_{kj}\log&space;\theta_{ij})
 > 
 
 
