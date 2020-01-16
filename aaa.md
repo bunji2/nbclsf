@@ -161,7 +161,9 @@ func ProbCat(cat TypeCat) float64 {
  > 
  > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j})
  > 
- > (![](https://latex.codecogs.com/gif.latex?0<\theta_j<1,\&space;\sum_{j=1}^m\theta_j=1))
+ > ただし以下を満たすものとする
+ > 
+ > ![](https://latex.codecogs.com/gif.latex?0<\theta_j<1,\&space;\sum_{j=1}^m\theta_j=1))
 
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
@@ -203,7 +205,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > 
 > 式 2.5.2
 > 
-> ![MLE](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{MLE}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
+> ![MLE](https://latex.codecogs.com/gif.latex?\^{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
 > 
 
 　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
@@ -234,7 +236,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 > 
 > 式 2.6.1
 > 
-> ![EAP](https://latex.codecogs.com/gif.latex?{\theta_{ij}}_{EAP}=\frac{n_{ij}&space;&plus;&space;1}{\sum_{j=1}^{m}&space;n_{ij}&space;&plus;&space;m})
+> ![EAP](https://latex.codecogs.com/gif.latex?\^{\theta_{ij}}=\frac{n_{ij}\&space;&plus;&space;1}{\sum_{j=1}^{m}&space;n_{ij}\&space;&plus;&space;m})
 > 
 
 　これは事前分布を一様分布と想定した場合の期待事後確率推定値 (Expected a Posterior Estimator; EAP 推定値) に相当する。
