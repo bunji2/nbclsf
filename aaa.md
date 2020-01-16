@@ -261,7 +261,7 @@ func ProbWordGivenCat (word TypeWord, cat TypeCat) float64 {
 
 　上の関数 ProbDocGivenCat の実装では、単語数が多いと分母の値が非常に大きくなりアンダーフローが起きる恐れがあるので、これを回避すべく対数をとる。
 
-　このようにして ProbDocGivenCat の対数を計算する LogProbDocGivenCat の実装は継のようになる。
+　このようにして ProbDocGivenCat の対数を計算する LogProbDocGivenCat の実装は次のようになる。
 
 ```go
 // ソースコード 6
@@ -327,39 +327,18 @@ func Predict(doc TypeDoc) (cat TypeCat) {
 
 　教師データとして、文書 doc とそのカテゴリ cat が与えられたとする。使用する変数に対して、以下の表に示す処理を実施する必要がある。
 
-表 3.1.1
-変数
-概要
-処理
-直接的に依存する関数
-var catList []TypeCat
-カテゴリのリスト
-cat が初出のときのみリストに追加
-PredictCat
-var numAllDocs int
-すべての文書の数
-numAllDocs の値をインクリメント
-ProbCat
-var numDocsCat map[TypeCat]int
-各カテゴリごとの文書の数
-numDocsCat[cat] の値をインクリメント
-ProbCat
-var numWordInCat map[TypeCat]map[TypeWord]int
-ある単語があるカテゴリに含まれる個数
-文書 doc に含まれるすべての単語 word について、numWordInCat[cat][word] の値をインクリメント
-ProbWordGivenCat
-var numAllWordsInCat map[TypeCat]int
-カテゴリに含まれる単語の個数
-文書 doc に含まれる単語の個数だけ、numAllWordsInCat[cat] の値をインクリメント
-ProbWordGivenCat
-var numAllWords int
-全単語数 (重複なし)
-文書 doc について wordList を更新後、len(wordList) の値を代入。つまり、これまでに出現した重複のないすべての単語の個数を代入
-ProbWordGivenCat
-var wordList map[TypeWord]int
-単語のリスト、各単語の出現数
-文書 doc に含まれるすべての単語 word について、wordList[word] の値をインクリメント
-Train
+> 表 3.1.1
+> 
+> |変数|概要|処理|直接的に依存する関数|
+> |:---|:---|:---|:---|
+> |var catList []TypeCat|カテゴリのリスト|cat が初出のときのみリストに追加|PredictCat|
+> |var numAllDocs int|すべての文書の数|numAllDocs の値をインクリメント|ProbCat|
+> |var numDocsCat map[TypeCat]int|各カテゴリごとの文書の数|numDocsCat[cat] の値をインクリメント|ProbCat|
+> |var numWordInCat map[TypeCat]map[TypeWord]int|ある単語があるカテゴリに含まれる個数|文書 doc に含まれるすべての単語 word について、numWordInCat[cat][word] の値をインクリメント|ProbWordGivenCat|
+> |var numAllWordsInCat map[TypeCat]int|カテゴリに含まれる単語の個数|文書 doc に含まれる単語の個数だけ、numAllWordsInCat[cat] の値をインクリメント|ProbWordGivenCat|
+> |var numAllWords int|全単語数 (重複なし)|文書 doc について wordList を更新後、len(wordList) の値を代入。つまり、これまでに出現した重複のないすべての単語の個数を代入|ProbWordGivenCat|
+> |var wordList map[TypeWord]int|単語のリスト、各単語の出現数|文書 doc に含まれるすべての単語 word について、wordList[word] の値をインクリメント|Train|
+> 
 
 
 　与えられた文書とカテゴリで学習する関数 Train の実装例は次のようになる。
