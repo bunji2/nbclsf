@@ -154,17 +154,19 @@ func ProbCat(cat TypeCat) float64 {
 * 文書中にある単語が現れる確率は文書中の位置に依存しない
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i))
- を、文書 ![D](https://latex.codecogs.com/gif.latex?D) に含まれる単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する確率とし、単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) が文書 ![D](https://latex.codecogs.com/gif.latex?D) に出現する個数を ![n_j](https://latex.codecogs.com/gif.latex?n_j) とすれば、  は次のような多項分布関数で表される。
+ を、文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) に含まれる単語 ![w_{kj}](https://latex.codecogs.com/gif.latex?w_{kj}) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する確率とし、単語 ![w_{kj}](https://latex.codecogs.com/gif.latex?w_{kj}) が文書 ![D](https://latex.codecogs.com/gif.latex?D_k) に出現する個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とすれば、  は次のような多項分布関数で表される。
 
  > 
  > 式 2.4.1
  > 
- > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_j})
+ > ![P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}}](https://latex.codecogs.com/gif.latex?P(D|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}})
  > 
  > ただし以下を満たすものとする
  > 
- > ![](https://latex.codecogs.com/gif.latex?0<\theta_{ij}<1,\&space;\sum_{j=1}^m\theta_{ij}=1)
-
+ > ![](https://latex.codecogs.com/gif.latex?0<\theta_{ij}<1)
+ > 
+ > ![](\sum_{j=1}^m\theta_{ij}=1)
+ > 
 
 　確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を求める関数を ProbWordGivenCat とするとき、確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を求める関数 ProbDocGivenCat は次のようになる。
 
