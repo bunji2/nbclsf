@@ -1,5 +1,10 @@
 package nbclsf_test
 
+import (
+  "fmt"
+  "github.com/bunji2/nbclsf"
+)
+
 func DummyTrainData()(docs[]TypeDoc,cats[]TypeCat) {
   docs = []TypeDoc{
     TypeDoc{0:1,1,23,2:44},
