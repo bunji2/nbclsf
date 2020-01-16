@@ -36,7 +36,7 @@
 > |![P(C_i%7CD)](https://latex.codecogs.com/gif.latex?P(C_i%7CD))|0.12|0.17|0.05|0.51|0.15|
 > 
 
-　![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) を求める関数を ProbCatGivenDoc とする。
+　![P(C_i|D_k)](https://latex.codecogs.com/gif.latex?P(C_i|D_k)) を求める関数を ProbCatGivenDoc とする。
 
 　ある文書が属するカテゴリを推定する関数 PredictCat はすべてのカテゴリについて ProbCatGivenDoc を計算していき、その値が最大となるときのカテゴリを決定すればよいので、実装は次のようになる。
 
@@ -67,15 +67,15 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 
 ## 2.2 ProbCatGivenDoc (暫定版)
 
-　ある文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D)](https://latex.codecogs.com/gif.latex?P(C_i|D)) はベイズの定理により次のように表される。
+　ある文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する確率 ![P(C_i|D_k)](https://latex.codecogs.com/gif.latex?P(C_i|D_k)) はベイズの定理により次のように表される。
 
 > 
 > 式 2.2.1
 > 
-> ![P(C_i|C_i)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
+> ![P(C_i|D_k)=P(C_i)P(D|C_i)/P(D)](https://latex.codecogs.com/gif.latex?P(C_i|D_k)=\frac{P(C_i)P(D_k|C_i)}{P(D_k)})
 > 
 
-　ここで、![P(C_i),P(D|C_i),P(D)](https://latex.codecogs.com/gif.latex?P(C_i),P(D|C_i),P(D)) はそれぞれ次の確率を示す。
+　ここで、![P(C_i),P(D_k|C_i),P(D_k)](https://latex.codecogs.com/gif.latex?P(C_i),P(D_k|C_i),P(D_k)) はそれぞれ次の確率を示す。
 
 > 
 > 表 2.2.1
@@ -83,28 +83,28 @@ func PredictCat(doc TypeDoc) (cat TypeCat) {
 > |式|意味|
 > |:---:|:---|
 > |![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) である確率|
-> |![P(D%7CC_i)](https://latex.codecogs.com/gif.latex?P(D%7CC_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率|
-> |![P(D)](https://latex.codecogs.com/gif.latex?P(D))|文書 ![D](https://latex.codecogs.com/gif.latex?D) が成立する確率|
+> |![P(D_k%7CC_i)](https://latex.codecogs.com/gif.latex?P(D_k%7CC_i))|カテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) に文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) が含まれる確率|
+> |![P(D_k)](https://latex.codecogs.com/gif.latex?P(D_k))|文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k) が成立する確率|
 > 
 
-　また ![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は以下を満たす。
+　また ![P(D_k)](https://latex.codecogs.com/gif.latex?P(D_k)) は以下を満たす。
 
 > 
 > 式 2.2.2
 > 
-> ![P(D)=ΣP(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D)=\sum_{i=1}^{n}P(C_i)P(D|C_i))
+> ![P(D)=ΣP(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D_k)=\sum_{i=1}^{n}P(C_i)P(D_k|C_i))
 > 
 
-　![P(D)](https://latex.codecogs.com/gif.latex?P(D)) は ![C_i](https://latex.codecogs.com/gif.latex?C_i)
- に関係なく固定の値であること、また、カテゴリの推定は ![P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i)P(D|C_i)) の大小関係のみに基づいていることから、次の比例関係に注目すればよい。
+　![P(D)](https://latex.codecogs.com/gif.latex?P(D_k)) は ![C_i](https://latex.codecogs.com/gif.latex?C_i)
+ に関係なく固定の値であること、また、カテゴリの推定は ![P(C_i)P(D_k|C_i)](https://latex.codecogs.com/gif.latex?P(C_i)P(D|C_i)) の大小関係のみに基づいていることから、次の比例関係に注目すればよい。
 
 > 
 > 式 2.2.3
 > 
-> ![P(C_i|D)∝P(C_i)P(D|C_i)](https://latex.codecogs.com/gif.latex?P(C_i|D)\propto&space;P(C_i)P(D|C_i))
+> ![P(C_i|D_k)∝P(C_i)P(D_k|C_i)](https://latex.codecogs.com/gif.latex?P(C_i|D)\propto&space;P(C_i)P(D|C_i))
 > 
 
-　![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) を計算する関数 ProbCat と ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を計算する関数 ProbDocGivenCat があるとすれば、 の「比」を計算する関数 ProbCatGivenDoc の実装は次のような形になる。
+　![P(C_i)](https://latex.codecogs.com/gif.latex?P(C_i)) を計算する関数 ProbCat と ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D_k|C_i)) を計算する関数 ProbDocGivenCat があるとすれば、 の「比」を計算する関数 ProbCatGivenDoc の実装は次のような形になる。
 
 
 ```go
@@ -142,9 +142,9 @@ func ProbCat(cat TypeCat) float64 {
 
 ## 2.4 ProbDocGivenCat
 
- ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) はカテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) （に属する文書群）に文書 ![D](https://latex.codecogs.com/gif.latex?D) が含まれる確率である。
+ ![P(D_k|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) はカテゴリー ![C_i](https://latex.codecogs.com/gif.latex?C_i) （に属する文書群）に文書 ![D_k](https://latex.codecogs.com/gif.latex?D) が含まれる確率である。
 
-　しかし文書 ![D](https://latex.codecogs.com/gif.latex?D) がカテゴリーに属する文書と一致するケースがほぼないと考えられるため、文書数だけでは計算することができない。
+　しかし文書 ![D_k](https://latex.codecogs.com/gif.latex?D) がカテゴリーに属する文書と一致するケースがほぼないと考えられるため、文書数だけでは計算することができない。
 
 
 　ここで文書に出現する単語群に注目し、次の仮定をおくことにする。
@@ -194,13 +194,15 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 
 　単語の出現確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) は確率 ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) のパラメータである。単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) の出現する個数を ![n_j](https://latex.codecogs.com/gif.latex?n_j) を実測してパラメータを推定するにあたり、まず最尤推定値 (Maximum Likelihood Estimator) を使う。
 
- ![P(D|C_i)](https://latex.codecogs.com/gif.latex?P(D|C_i)) を下に示すような尤度関数とみなし、これが最大になるパラメータを推定することになる。
+ ![P(D_k|C_i)](https://latex.codecogs.com/gif.latex?P(D_k|C_i)) を下に示すような尤度関数とみなし、これが最大になるパラメータを推定することになる。
 
 > 
 > 式 2.5.1
 > 
-> ![](https://latex.codecogs.com/gif.latex?P(D|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{1}\cdots&space;n_{m})=\prod_{j=1}^{m}\theta_{ij}^{n_j})
+> ![](https://latex.codecogs.com/gif.latex?P(D_k|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots&space;n_{km})=\prod_{j=1}^{m}\theta_{ij}^{n_kj})
 > 
+
+カテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に属する各文書 ![D_k](https://latex.codecogs.com/gif.latex?D_k)に含まれる単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) の個数を ![n_{kj}](https://latex.codecogs.com/gif.latex?n_{kj}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
 
 単語 ![w_j](https://latex.codecogs.com/gif.latex?w_j) がカテゴリ ![C_i](https://latex.codecogs.com/gif.latex?C_i) に出現する個数を ![n_{ij}](https://latex.codecogs.com/gif.latex?n_{ij}) とすれば ![\theta_{ij}](https://latex.codecogs.com/gif.latex?\theta_{ij}) の最尤推定値は次のようになる。
 
@@ -209,7 +211,7 @@ func ProbDocGivenCat(doc TypeDoc, cat TypeCat) (r float64) {
 > 
 > ![MLE](https://latex.codecogs.com/gif.latex?\hat{\theta_{ij}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}})
 > 
-> 
+> ![](https://latex.codecogs.com/gif.latex?n_{ij}&space;=&space;\sum_{k=1}^{l}n_{kj})
 
 　numWordInCat[cat][word] を単語 word がカテゴリ cat に含まれる個数とすれば、確率 ![\theta_{ij}=P(w_j|C_i)](https://latex.codecogs.com/gif.latex?\theta_{ij}=P(w_j|C_i)) を計算する関数 ProbWordGivenCat は次のように与えることができる。
 
