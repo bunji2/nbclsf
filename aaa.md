@@ -337,7 +337,7 @@ func Predict(doc TypeDoc) (cat TypeCat) {
 > |var numWordInCat map[TypeCat]map[TypeWord]int|ある単語があるカテゴリに含まれる個数|文書 doc に含まれるすべての単語 word について、numWordInCat[cat][word] の値をインクリメント|ProbWordGivenCat|
 > |var numAllWordsInCat map[TypeCat]int|カテゴリに含まれる単語の個数|文書 doc に含まれる単語の個数だけ、numAllWordsInCat[cat] の値をインクリメント|ProbWordGivenCat|
 > |var numAllWords int|全単語数 (重複なし)|文書 doc について wordList を更新後、len(wordList) の値を代入。つまり、これまでに出現した重複のないすべての単語の個数を代入|ProbWordGivenCat|
-> |var wordList map[TypeWord]int|単語のリスト、各単語の出現数|文書 doc に含まれるすべての単語 word について、wordList[word] の値をインクリメント|Train|
+> |var wordList map[TypeWord]int|単語のリスト、各単語の出現数|文書 doc に含まれるすべての単語 word について、wordList[word] の値をインクリメント|-|
 > 
 
 
@@ -385,94 +385,42 @@ func Train(doc TypeDoc, cat TypeCat) {
 
 ## 4. 評価
 
-　本稿に示したカテゴリの推定方式について、Livedoor ニュースコーパスを用いて精度を評価した。Livedoor ニュースコーパスには９つのカテゴリがあり、7367 の文書からなる。今回はこのコーパスの 80% を教師データとし、残り 20% を試験データとした場合の、指標を算出した。
+　本稿に示したカテゴリの推定方式について、Livedoor ニュースコーパスを用いて精度を評価した。Livedoor ニュースコーパスには９つのカテゴリがあり、7367 の文書からなる。今回はこのコーパスの 80% を教師データとし、残り 20% を試験データとした場合の、適合率(Precision)・再現率(Recall)・F値(F-Measure)・正解率(Accuracyの４つの指標値を算出した。
 
-　9 つのカテゴリの Precision, Recall, F-Measure, Accuracy はそれぞれ次のようになった。
+　9 つのカテゴリの指標値はそれぞれ次のようになった。
 
-表 4.1
-カテゴリ
+> 
+> 表 4.1
+> 
+> |カテゴリ|C1|C2|C3|C4|C5|C6|C7|C8|C9|
+> |:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|
+> |Precision|0.958084|0.898734|0.860465|0.930233|0.889535|0.932886|0.857143|0.937500|0.952941|
+> |Recall|1.000000|0.940397|0.907975|0.909091|0.987097|0.822485|0.814815|0.967742|0.885246|
+> |F-Measure|0.978593|0.919094|0.883582|0.919540|0.935780|0.874214|0.835443|0.952381|0.917847|
+> |Accuracy|0.995251|0.983039|0.973541|0.981004|0.985753|0.972863|0.964722|0.989824|0.980326|
+> 
 
+また指標のマクロ平均・マイクロ平均は次のようになった。
 
+> 
+> 表 4.2
+> |Micro Precision|0.913161|
+> |Micro Recall|0.913161|
+> |Micro F-Measure|0.913161|
+> |Macro Precision|0.913058|
+> |Macro Recall|0.914983|
+> |Macro F-Measure|0.914019|
+> |Overall Accuracy0.980703|
+> 
 
-
-
-
-
-
-
-Precision
-0.958084
-0.898734
-0.860465
-0.930233
-0.889535
-0.932886
-0.857143
-0.937500
-0.952941
-Recall
-1.000000
-0.940397
-0.907975
-0.909091
-0.987097
-0.822485
-0.814815
-0.967742
-0.885246
-F-Measure
-0.978593
-0.919094
-0.883582
-0.919540
-0.935780
-0.874214
-0.835443
-0.952381
-0.917847
-Accuracy
-0.995251
-0.983039
-0.973541
-0.981004
-0.985753
-0.972863
-0.964722
-0.989824
-0.980326
-
-　また指標の平均は次のようになった。
-
-表 4.2
-Micro Precision
-0.913161
-Micro Recall
-0.913161
-Micro F-Measure
-0.913161
-Macro Precision
-0.913058
-Macro Recall
-0.914983
-Macro F-Measure
-0.914019
-Overall Accuracy
-0.980703
-
-　単純な実装内容にも関わらず、90% 超の精度でカテゴリ推定できることがわかった。
+　単純な実装内容にも関わらず、適合率・再現率とも 90% 超の精度でカテゴリ推定できることがわかった。
 
 ## 5. おわりに
 
 　本稿では、文書のカテゴリを推定する分類器をナイーブベイズを用いたモデルで示し、そして GoLang による実装例を示した。また、Livedoor ニュースコーパスを用いて評価した結果を示した。今後はマルチラベル分類器に拡張していく予定である。
 
 
-
 ## 参考
 
 Livedoor ニュースコーパス
 https://www.rondhuit.com/download.html#ldcc
-
-
-![C1...Cn](https://latex.codecogs.com/gif.latex?C_1,&space;...,&space;C_i,&space;...,&space;C_n)
-
-![](https://latex.codecogs.com/gif.latex?P(C_i|D)=\frac{P(C_i)P(D|C_i)}{P(D)})
