@@ -437,3 +437,6 @@ func Train(doc TypeDoc, cat TypeCat) {
 
 Livedoor ニュースコーパス
 https://www.rondhuit.com/download.html#ldcc
+
+nbclsf (Naive Bayes Classifier)
+https://godoc.org/github.com/bunji2/nbclsf
