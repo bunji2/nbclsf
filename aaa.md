@@ -415,8 +415,9 @@ func Train(doc TypeDoc, cat TypeCat) {
 > 
 > 表 4.2
 > 
-> |Micro Precision|0.913161|
+> |指標|算出値|
 > |:--|:--|
+> |Micro Precision|0.913161|
 > |Micro Recall|0.913161|
 > |Micro F-Measure|0.913161|
 > |Macro Precision|0.913058|
