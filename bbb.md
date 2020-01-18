@@ -11,7 +11,7 @@
 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1)
 
-便利上これらの ![](https://latex.codecogs.com/gif.latex?\theta_j) のセットを次のように ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) で表すことにする。
+便宜上これらの ![](https://latex.codecogs.com/gif.latex?\theta_j) のセットを次のように ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) で表すことにする。
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}&space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
@@ -20,24 +20,25 @@
 
 ## 試行
 
-![n](https://latex.codecogs.com/gif.latex?n) 回分の試行を次のように表すことにする。
+![j](https://latex.codecogs.com/gif.latex?i) を ![](https://latex.codecogs.com/gif.latex?1\leq&space;i\leq&space;n) とし、
+![n](https://latex.codecogs.com/gif.latex?n) 回分の試行全体を次のように表すことにする。
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}&space;=&space;\boldsymbol{x}_1,\cdots,\boldsymbol{x}_i,\cdots,\boldsymbol{x}_n)
 > 
 
-![n](https://latex.codecogs.com/gif.latex?n) 回中の i 番目の試行を次のように表すことにする。
+![n](https://latex.codecogs.com/gif.latex?n) 回中の i 番目の試行は 1 から ![m](https://latex.codecogs.com/gif.latex?m) までのいずれかの目の出た結果となり、次のように表すことにする。
 
-> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{1j},\cdots,x_{ij},\cdots,x_{nj})
+> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{i1},\cdots,x_{ij},\cdots,x_{im})
 
-このとき、1 の目から ![m](https://latex.codecogs.com/gif.latex?m) の目までのいずれかが出るので、それぞれの試行は 0 か 1 のいずれかとなり、一つだけ 1 となることから合計は 1 となる。
+このとき、1 の目から ![m](https://latex.codecogs.com/gif.latex?m) の目までのいずれかが必ず出るので、それぞれの試行は 0 か 1 のいずれかとなり、一つだけ 1 となることから合計は 1 となる。
 
 > ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\{0,1\})
 > 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
 > 
 
-j の目が出る回数 ![r_j](https://latex.codecogs.com/gif.latex?r_j) は次のように表すことができる。
+特定の目の出る回数、例えば j の目が出る回数 ![r_j](https://latex.codecogs.com/gif.latex?r_j) は次のように表すことができる。
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?r_j=\sum_{i=1}^nx_{ij})
@@ -48,11 +49,49 @@ j の目が出る回数 ![r_j](https://latex.codecogs.com/gif.latex?r_j) は次�
 
 ## 多項分布
 
+![n](https://latex.codecogs.com/gif.latex?n) 回の試行の確率は次のように多項分布で表される。
+
 > 
 > ![](https://latex.codecogs.com/gif.latex?p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
 > 
 
+## 各目の出る確率の推定
+
+ここで、先の各目の出る確率 ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) が不明であり、これらを推定する必要がある。
+
+以下、これらの確率を、最尤推定、最大事後確率推定、平均事後確率推定でそれぞれ求めてみる。
+
 ## 最尤推定
+
+先の多項分布を ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) の尤度関数とみなしそれが最大となるような ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) を求める。
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?L(\boldsymbol{\theta})=p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
+> 
+
+対数化し、微分を行う。
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?\log&space;L(\boldsymbol{\theta})=\sum_{j=1}^mr_j\log\theta_j=\sum_{j=1}^{m-1}r_j\log\theta_j&plus;r_(1-\Sigma_{j=1}^m\theta_j)\log(1-\Sigma_{j=1}^m\theta_j))
+> 
+> ![](https://latex.codecogs.com/gif.latex?\frac{\partial&space;}{\partial\theta_j}\log&space;L(\boldsymbol{\theta})=\frac{r_j}{\theta_j}-\frac{n-\Sigma_{j=1}^{m-1}r_j}{1-\Sigma_{j=1}^{m-1}\theta_j}=\frac{r_j}{\theta_j}-\frac{r_m}{\theta_m}=0)
+> 
+> ![](https://latex.codecogs.com/gif.latex?\theta_j=\frac{r_j}{r_m}\theta_m)
+
+![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1) であることより、
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=\sum_{j=1}^m\frac{r_j}{r_m}\theta_m=\frac{n}{r_m}\theta_m=1)
+> 
+> ![](https://latex.codecogs.com/gif.latex?\theta_j=\frac{r_j}{r_m}\theta_m=\frac{r_j}{r_m}\cdot\frac{r_m}{n}=\frac{r_j}{n})
+
+以上より、まとめると最尤推定値は次のように示される。
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?\log&space;L(\boldsymbol{\theta})=\log\prod_{j=1}^m\theta_{j}^{r_j}=\sum_{j=1}^mr_j\log\theta_j)
+> 
+
+
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?\hat{\theta_{j}}&space;=&space;\dfrac{r_j}{n})
