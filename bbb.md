@@ -15,7 +15,7 @@
 > 
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{1j},\cdots,x_{ij},\cdots,x_{nj})
 > 
-> ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\left&space;\{0,1\right\})
+> ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\left\{0,1\right\})
 > 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
 > 
