@@ -78,23 +78,19 @@
 > 
 > ![](https://latex.codecogs.com/gif.latex?\theta_j=\frac{r_j}{r_m}\theta_m)
 
-![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1) であることより、
+ここで、![](https://latex.codecogs.com/gif.latex?\Sigma_{j=1}^m\theta_j=1) であることより、
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=\sum_{j=1}^m\frac{r_j}{r_m}\theta_m=\frac{n}{r_m}\theta_m=1)
 > 
 > ![](https://latex.codecogs.com/gif.latex?\theta_j=\frac{r_j}{r_m}\theta_m=\frac{r_j}{r_m}\cdot\frac{r_m}{n}=\frac{r_j}{n})
-
-以上より、まとめると最尤推定値は次のように示される。
-
-> 
-> ![](https://latex.codecogs.com/gif.latex?\log&space;L(\boldsymbol{\theta})=\log\prod_{j=1}^m\theta_{j}^{r_j}=\sum_{j=1}^mr_j\log\theta_j)
 > 
 
+以上より、最尤推定値は次のように示される。
 
 
 > 
-> ![](https://latex.codecogs.com/gif.latex?\hat{\theta_{j}}&space;=&space;\dfrac{r_j}{n})
+> ![](https://latex.codecogs.com/gif.latex?{\hat{\theta_{j}}}_{MLE}=\dfrac{r_j}{n})
 > 
 
 ## 事前確率
