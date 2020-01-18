@@ -2,11 +2,25 @@
 
 ## 多項分布
 
-![](https://latex.codecogs.com/gif.latex?p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
+> 
+> ![](https://latex.codecogs.com/gif.latex?p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
+> 
+> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}&space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
+> 
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1)
+> 
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}&space;=&space;\boldsymbol{x}_1,\cdots,\boldsymbol{x}_i,\cdots,\boldsymbol{x}_n)
+> 
+> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{1j},\cdots,x_{ij},\cdots,x_{nj})
+> 
 
 ## 最尤推定
 
-![](https://latex.codecogs.com/gif.latex?\hat{\theta_{j}}&space;=&space;\dfrac{r_j}{n})
+> 
+> ![](https://latex.codecogs.com/gif.latex?\hat{\theta_{j}}&space;=&space;\dfrac{r_j}{n})
+> 
 
 ## 事前確率
 
