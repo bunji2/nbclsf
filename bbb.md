@@ -4,7 +4,7 @@
 
 ![m](https://latex.codecogs.com/gif.latex?m) 個の目を持つサイコロを想定する。
 
-![j](https://latex.codecogs.com/gif.latex?j) を ![](https://latex.codecogs.com/gif.latex?1\leq&space;j\leq&space;1) とし、
+![j](https://latex.codecogs.com/gif.latex?j) を ![](https://latex.codecogs.com/gif.latex?1\leq&space;j\leq&space;m) とし、
 1 から ![m](https://latex.codecogs.com/gif.latex?m) までのそれぞれの目の出る確率を ![](https://latex.codecogs.com/gif.latex?\theta_j) とする。
 
 1 から ![m](https://latex.codecogs.com/gif.latex?m) までのいずれかの目の出ることからこれらの確率の合計は 1 となる。
