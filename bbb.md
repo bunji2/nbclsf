@@ -15,6 +15,16 @@
 > 
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{1j},\cdots,x_{ij},\cdots,x_{nj})
 > 
+> ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\left&space;\{0,1\right\})
+> 
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
+> 
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
+> 
+> ![](https://latex.codecogs.com/gif.latex?r_j=\sum_{i=1}^nx_{ij})
+> 
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mr_j=n)
+> 
 
 ## 最尤推定
 
