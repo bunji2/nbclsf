@@ -1,29 +1,55 @@
 # 多項分布のパラメータ推定
 
-## 多項分布
+## ![m](https://latex.codecogs.com/gif.latex?m) 個の目を持つサイコロ
+
+![m](https://latex.codecogs.com/gif.latex?m) 個の目を持つサイコロを想定する。
+
+![j](https://latex.codecogs.com/gif.latex?j) を ![](https://latex.codecogs.com/gif.latex?1\leq&space;j\leq&space;1) とし、
+1 から ![m](https://latex.codecogs.com/gif.latex?m) までのそれぞれの目の出る確率を ![](https://latex.codecogs.com/gif.latex?\theta_j) とする。
+
+1 から ![m](https://latex.codecogs.com/gif.latex?m) までのいずれかの目の出ることからこれらの確率の合計は 1 となる。
+
+> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1)
+
+便利上これらの ![](https://latex.codecogs.com/gif.latex?\theta_j) のセットを次のように![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) で表すことにする。
 
 > 
-> ![](https://latex.codecogs.com/gif.latex?p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
+> &space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
 > 
-> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}&space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
-> 
-> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1)
-> 
+
+
+## 試行
+
+![n](https://latex.codecogs.com/gif.latex?n) 回分の試行を次のように表すことにする。
 
 > 
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}&space;=&space;\boldsymbol{x}_1,\cdots,\boldsymbol{x}_i,\cdots,\boldsymbol{x}_n)
 > 
+
+![n](https://latex.codecogs.com/gif.latex?n) 回中の i 番目の試行を次のように表すことにする。
+
 > ![](https://latex.codecogs.com/gif.latex?\boldsymbol{x}_i&space;=&space;x_{1j},\cdots,x_{ij},\cdots,x_{nj})
-> 
-> ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\left\{0,1\right\})
+
+このとき、1 の目から ![m](https://latex.codecogs.com/gif.latex?m) の目までのいずれかが出るので、それぞれの試行は 0 か 1 のいずれかとなり、一つだけ 1 となることから合計は 1 となる。
+
+> ![](https://latex.codecogs.com/gif.latex?x_{ij}&space;\in&space;\{0,1\})
 > 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
 > 
-> ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mx_{ij}=1)
+
+j の目が出る回数 ![r_j](https://latex.codecogs.com/gif.latex?r_j) は次のように表すことができる。
+
 > 
 > ![](https://latex.codecogs.com/gif.latex?r_j=\sum_{i=1}^nx_{ij})
 > 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^mr_j=n)
+> 
+
+
+## 多項分布
+
+> 
+> ![](https://latex.codecogs.com/gif.latex?p(\boldsymbol{x}|\boldsymbol{\theta})=\prod_{j=1}^m\theta_{j}^{r_j})
 > 
 
 ## 最尤推定
