@@ -11,10 +11,10 @@
 
 > ![](https://latex.codecogs.com/gif.latex?\sum_{j=1}^m\theta_j=1)
 
-便利上これらの ![](https://latex.codecogs.com/gif.latex?\theta_j) のセットを次のように![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) で表すことにする。
+便利上これらの ![](https://latex.codecogs.com/gif.latex?\theta_j) のセットを次のように ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}) で表すことにする。
 
 > 
-> &space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
+> ![](https://latex.codecogs.com/gif.latex?\boldsymbol{\theta}&space;=&space;\theta_1,\cdots,\theta_j,\cdots,\theta_m)
 > 
 
 
