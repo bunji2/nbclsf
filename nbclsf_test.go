@@ -2,6 +2,7 @@ package nbclsf_test
 
 import (
   "fmt"
+  "github.com/bunji2/nbclsf"
 )
 
 func DummyTrainData()(docs[]TypeDoc,cats[]TypeCat) {
