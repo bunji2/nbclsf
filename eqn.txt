@@ -1,0 +1,99 @@
+<!-- {D}-->
+![D](teclip20200503235724.png)
+
+<!-- {C}-->
+![C](texclip20200503235813.png)
+
+<!-- {P(C|D)}-->
+![](texclip20200503235905.png)
+
+<!-- {C_1,\cdots,C_n}-->
+![C_1,\cdots,C_n](texclip20200504000020.png)
+
+<!-- {P(C_i|D)}-->
+![P(C_i|D)](texclip20200504000133.png)
+
+<!-- {C_i}-->
+![C_i](texclip20200504000204.png)
+
+<!-- {P(C_i|D)}-->
+![P(C_i|D)](texclip20200504000254.png)
+
+<!-- {P(C_i|D_k)}-->
+![P(C_i|D_k)](texclip20200504000337.png)
+
+<!-- {D_k}-->
+![D_k](texclip20200504000421.png)
+
+<!-- {P(C_i|D_k)=\frac{P(C_i)P(D_k|C_i)}{P(D_k)}}-->
+![P(C_i|D_k)=\frac{P(C_i)P(D_k|C_i)}{P(D_k)}](texclip20200504000515.png)
+
+<!-- {P(C_i),P(D_k|C_i),P(D_k)}-->
+![P(C_i),P(D_k|C_i),P(D_k)](texclip20200504000605.png)
+
+<!-- {P(C_i)}-->
+![P(C_i)](texclip20200504000705.png)
+
+<!-- {P(D|C_i)}-->
+![P(D|C_i)](texclip20200504002342.png)
+
+<!-- {P(D_k|C_i)}-->
+![P(D_k|C_i)](texclip20200504000754.png)
+
+<!-- {P(D_k)}-->
+![P(D_k)](texclip20200504000901.png)
+
+<!-- {P(D_k)=\sum_{i=1}^{n}P(C_i)P(D_k|C_i)}-->
+![P(D_k)=\sum_{i=1}^{n}P(C_i)P(D_k|C_i)](texclip20200504000953.png)
+![P(D_k)=\sum_{i=1}^{n}P(C_i)P(D_k|C_i)](texclip20200504010147.png)
+
+<!-- {P(C_i)P(D|C_i)}-->
+![P(C_i)P(D|C_i)](texclip20200504002425.png)
+
+<!-- {P(C_i|D)\propto{P(C_i)P(D|C_i)}}-->
+![P(C_i|D)\propto{P(C_i)P(D|C_i)}](texclip20200504002452.png)
+
+<!-- {P(D_k|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}}} -->
+![P(D_k|C_i)=\prod_{j=1}^{m}\theta_{ij}^{n_{kj}}](texclip20200504002545.png)
+
+<!-- {\theta_{ij}=P(w_j|C_i)} -->
+![\theta_{ij}=P(w_j|C_i)](texclip20200504002610.png)
+
+<!-- {\theta_{ij}} -->
+![\theta_{ij}](texclip20200504002640.png)
+
+<!-- {0<\theta_{ij}<1} -->
+![0<\theta_{ij}<1](texclip20200504002716.png)
+
+<!-- {\sum_{j=1}^m\theta_{ij}=1} -->
+![\sum_{j=1}^m\theta_{ij}=1](texclip20200504002745.png)
+
+<!-- {w_j} -->
+![w_j](texclip20200504002811.png)
+
+<!-- {m} -->
+![m](texclip20200504002835.png)
+
+<!-- {n_{kj}} -->
+![n_{kj}](texclip20200504002902.png)
+
+<!-- {n_{ij}} -->
+![n_{ij}](texclip20200504002927.png)
+
+<!-- {n_{ij}=\sum_{k=1}^{l}n_{kj}} -->
+![n_{ij}=\sum_{k=1}^{l}n_{kj}](texclip20200504002959.png)
+
+<!-- {n_j} -->
+![n_j](texclip20200504003028.png)
+
+<!-- {P(D_k|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots n_{km})=\prod_{j=1}^{m}\theta_{ij}^{n_kj}} -->
+![P(D_k|C_i)=L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots n_{km})=\prod_{j=1}^{m}\theta_{ij}^{n_kj}](texclip20200504003057.png)
+
+<!-- {\hat{\theta_{ij}}=\frac{\sum_{k=1}^ln_{kj}}{\sum_{j=1}^{m}\sum_{k=1}^ln_{kj}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}}} -->
+![\hat{\theta_{ij}}=\frac{\sum_{k=1}^ln_{kj}}{\sum_{j=1}^{m}\sum_{k=1}^ln_{kj}}=\frac{n_{ij}}{\sum_{j=1}^{m}n_{ij}}](texclip20200504003133.png)
+
+<!-- {\hat{\theta_{ij}}=\frac{n_{ij}+1}{\sum_{j=1}^{m}n_{ij}+m}} -->
+![\hat{\theta_{ij}}=\frac{n_{ij}+1}{\sum_{j=1}^{m}n_{ij}+m}](texclip20200504003210.png)
+
+<!-- {\log{P(D_k|C_i)}=\log{L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots n_{km})}=\sum_{j=1}^{m}n_{kj}\log{\theta_{ij}}} -->
+![\log{P(D_k|C_i)}=\log{L(\theta_{i1}\cdots\theta_{im};n_{k1}\cdots n_{km})}=\sum_{j=1}^{m}n_{kj}\log{\theta_{ij}}](texclip20200504003310.png)
